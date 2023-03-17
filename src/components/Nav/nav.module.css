@@ -1,0 +1,23 @@
+.navLink{
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  max-width: 100vw;
+  padding: 0;
+}
+.navLink > li {
+  width: 100px;
+  height: 40px;
+  border: 2px solid #22a6b3;
+  transition: 0.5s
+}
+.navLink > li:hover{
+  transform: scale(1.2);
+  cursor: pointer;
+  background-color: #f9ca24;
+}
+.linkPage{
+  text-decoration: none;
+  font-size: 30px;
+  color: white;
+} 
