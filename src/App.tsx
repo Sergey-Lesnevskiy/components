@@ -7,13 +7,11 @@ import About from './pages/About/About';
 import Error from './pages/Error404/Error';
 
 class App extends React.Component {
-
-
   render(): React.ReactNode {
     return (
       <div>
         <BrowserRouter>
-        <Header></Header>
+          <Header></Header>
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/about" element={<About />} />

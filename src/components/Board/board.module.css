@@ -4,3 +4,6 @@
   row-gap: 50px;
   column-gap: 50px;
 }
+ul{
+  list-style: none;
+}

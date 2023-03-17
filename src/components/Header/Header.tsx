@@ -1,25 +1,18 @@
-
-import Nav from "../Nav/Nav";
-import React from "react";
-
-
-
+import Nav from '../Nav/Nav';
+import React from 'react';
 
 class Header extends React.Component {
-  
   render() {
     return (
-      
-        <header>
-          <div className="top-bar animat-dropdown"></div>
-          <div className="main-header">
-            <div className="conteiner">
-              <h1 className="site-title">Components</h1>
-            </div>
+      <header>
+        <div className="top-bar animat-dropdown"></div>
+        <div className="main-header">
+          <div className="conteiner">
+            <h1 className="site-title">Components</h1>
           </div>
-          <Nav></Nav>
-        </header>
-    
+        </div>
+        <Nav></Nav>
+      </header>
     );
   }
 }
