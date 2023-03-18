@@ -1,5 +1,10 @@
 {
   "name": "components",
+  "jest": {
+    "setupFiles": [
+        "<rootDir>/search.test.tsx"
+    ]
+},
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,10 +17,13 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "jest": "^29.5.0",
     "jest-fix-undefined": "^0.1.2",
+    "jest-globals": "^0.1.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.9.0"
+    "react-router-dom": "^6.9.0",
+    "ts-jest": "^29.0.5"
   },
   "devDependencies": {
     "@testing-library/dom": "^9.0.1",

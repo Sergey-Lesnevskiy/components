@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/Card/Card.tsx</title>
+    <title>Code coverage report for src/components/Search/Search.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/Card</a> Card.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/Search</a> Search.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/31</span>
+                <span class='fraction'>36/36</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/31</span>
+                <span class='fraction'>36/36</span>
             </div>
         
             
@@ -94,7 +94,12 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -103,59 +108,69 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import style from './card.module.css';
-import React from 'react';
-import image from '../../assets/img/frogs-5088767__340.jpg';
-import svgLike from '../../assets/svg/like-svgrepo-com.svg';
-import svgEye from '../../assets/svg/eye-svgrepo-com.svg';
-import { CardInt } from 'components/Board/Board';
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import style from './search.module.css';
 &nbsp;
-class Card extends React.Component&lt;CardInt, never&gt; {
-  constructor(props: CardInt) {
+interface Props {
+  state: string;
+  handleClick: (event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void;
+}
+type MyState = { text: string };
+class Search extends React.Component&lt;Props, MyState&gt; {
+  constructor(props: Props) {
     super(props);
+    // this.state = { text: window.localStorage.getItem('test') || '' };
   }
-  render() {
+  // handleChange = (event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+  //   this.setState({ text: (event.target as HTMLInputElement).value });
+  //   this.componentWillUnmount();
+  // };
+  // componentWillUnmount() {
+  //   localStorage.setItem('test', this.state.text);
+  // }
+&nbsp;
+  render(): React.ReactNode {
     return (
-      &lt;li className={style.wrapper_card}&gt;
-        &lt;img className={style.image} src={image} alt="" /&gt;
-        &lt;p className={style.title}&gt;{this.props.title}&lt;/p&gt;
-        &lt;p className={style.subTitle}&gt;{this.props.subTitle}&lt;/p&gt;
-        &lt;div&gt;
-          &lt;div className={style.footer_card}&gt;
-            &lt;img className={style.svg} src={svgLike} alt="" /&gt;
-            &lt;div className={style.countLike}&gt;{this.props.like}&lt;/div&gt;
-            &lt;img className={style.svg} src={svgEye} alt="" /&gt;
-            &lt;div className={style.countEye}&gt;{this.props.countEye}&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
+      &lt;label className={style.wrapper__search}&gt;
+        &lt;input
+          className={style.search}
+          defaultValue={this.props.state}
+          onChange={this.props.handleClick}
+          type="text"
+          placeholder="Search"
+        /&gt;
+      &lt;/label&gt;
     );
   }
 }
-&nbsp;
-export default Card;
+export default Search;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

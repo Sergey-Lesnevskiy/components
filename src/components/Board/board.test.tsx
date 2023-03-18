@@ -22,19 +22,18 @@ const data = [
 ];
 
 describe('Bord comtonent', () => {
-  it('the title is visible', () => {
+  it('the title is visible list', () => {
     render(<Board cards={data} />);
 
     expect(screen.getByRole('list')).toBeInTheDocument();
+  });
+  it('the title is visible text', () => {
+    render(<Board cards={data} />);
+
     expect(screen.getByText('forest')).toBeInTheDocument();
   });
   it('List renders without data', () => {
     render(<Board cards={[]} />);
     expect(screen.queryByRole('list')).toBeNull();
   });
-  // it('List snapshot', () => {
-  //   const list = render(<Board cards={data} />);
-
-  //   expect(list).toMatchSnapshot();
-  // });
 });
