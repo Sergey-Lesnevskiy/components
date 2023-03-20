@@ -4,8 +4,6 @@ import React from 'react';
 import Search from './Search';
 import '@testing-library/jest-dom/extend-expect';
 
-const handleClick = vi.fn();
-
 describe('Search component', () => {
   it('renders search component', () => {
     render(
@@ -16,7 +14,6 @@ describe('Search component', () => {
         state={''}
       ></Search>
     );
-    // screen.debug();
 
     expect(screen.queryByPlaceholderText(/search/i)).toBeInTheDocument();
   });
@@ -43,7 +40,5 @@ describe('Search component', () => {
     );
     expect(screen.queryByRole('textbox')).toBeInTheDocument();
     userEvent.type(screen.getByRole('textbox'), 'React');
-    // expect(handleClick).toHaveBeenCalledTimes(5);
-    // expect(screen.getByText('React')).toBeInTheDocument();
   });
 });

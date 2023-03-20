@@ -9,15 +9,7 @@ type MyState = { text: string };
 class Search extends React.Component<Props, MyState> {
   constructor(props: Props) {
     super(props);
-    // this.state = { text: window.localStorage.getItem('test') || '' };
   }
-  // handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   this.setState({ text: (event.target as HTMLInputElement).value });
-  //   this.componentWillUnmount();
-  // };
-  // componentWillUnmount() {
-  //   localStorage.setItem('test', this.state.text);
-  // }
 
   render(): React.ReactNode {
     return (
