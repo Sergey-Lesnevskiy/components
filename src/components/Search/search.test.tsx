@@ -1,5 +1,5 @@
 import { render, screen, userEvent } from '../../../utils/test-utils';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import React from 'react';
 import Search from './Search';
 import '@testing-library/jest-dom/extend-expect';
@@ -8,7 +8,7 @@ describe('Search component', () => {
   it('renders search component', () => {
     render(
       <Search
-        handleClick={function (event: React.ChangeEvent<HTMLInputElement>): void {
+        handleClick={function (): void {
           throw new Error('Function not implemented.');
         }}
         state={''}
@@ -20,7 +20,7 @@ describe('Search component', () => {
   it('render without text', () => {
     render(
       <Search
-        handleClick={function (event: React.ChangeEvent<HTMLInputElement>): void {
+        handleClick={function (): void {
           throw new Error('Function not implemented.');
         }}
         state={''}
@@ -32,7 +32,7 @@ describe('Search component', () => {
   it('onChnge work', () => {
     render(
       <Search
-        handleClick={function (event: React.ChangeEvent<HTMLInputElement>): void {
+        handleClick={function (): void {
           throw new Error('Function not implemented.');
         }}
         state={''}
