@@ -1,16 +1,11 @@
 import React from 'react';
+import { MyState, Props } from 'types/type';
 import style from './search.module.css';
 
-interface Props {
-  state: string;
-  handleClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-type MyState = { text: string };
 class Search extends React.Component<Props, MyState> {
   constructor(props: Props) {
     super(props);
   }
-
   render(): React.ReactNode {
     return (
       <label className={style.wrapper__search}>

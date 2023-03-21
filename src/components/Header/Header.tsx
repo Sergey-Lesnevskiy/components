@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './header.module.css';
+
 class Header extends React.Component {
   state = {
     currentPage: '',
@@ -21,7 +22,7 @@ class Header extends React.Component {
       });
     }
   }
-  handclickToLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  handClickToLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
     this.setState({
       currentPage: e.currentTarget.innerHTML + ' Page',
     });
@@ -31,23 +32,23 @@ class Header extends React.Component {
       <header>
         <div className="top-bar animat-dropdown"></div>
         <div className="main-header">
-          <div className="conteiner">
+          <div className="container">
             <h2 className="site-title">{this.state.currentPage}</h2>
           </div>
         </div>
         <ul className={style.navLink}>
           <li>
-            <NavLink className={style.linkPage} onClick={this.handclickToLink} to="/">
+            <NavLink className={style.linkPage} onClick={this.handClickToLink} to="/">
               Main
             </NavLink>
           </li>
           <li>
-            <NavLink className={style.linkPage} onClick={this.handclickToLink} to="/about">
+            <NavLink className={style.linkPage} onClick={this.handClickToLink} to="/about">
               About
             </NavLink>
           </li>
           <li>
-            <NavLink className={style.linkPage} onClick={this.handclickToLink} to="/error">
+            <NavLink className={style.linkPage} onClick={this.handClickToLink} to="/error">
               Error
             </NavLink>
           </li>

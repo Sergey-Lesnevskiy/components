@@ -3,9 +3,9 @@ import React from 'react';
 import image from '../../assets/img/frogs-5088767__340.jpg';
 import svgLike from '../../assets/svg/like-svgrepo-com.svg';
 import svgEye from '../../assets/svg/eye-svgrepo-com.svg';
-import { CardInt } from 'components/Board/Board';
+import { CardInt } from '../../types/type';
 
-class Card extends React.Component<CardInt, never> {
+class Card extends React.Component<CardInt> {
   constructor(props: CardInt) {
     super(props);
   }

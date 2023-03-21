@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/extend-expect';
 const data = [
   {
     id: 1,
-    title: 'foto',
+    title: 'photo',
     subTitle: 'home',
     like: 2,
     countEye: 6,
@@ -21,7 +21,7 @@ const data = [
   },
 ];
 
-describe('Bord comtonent', () => {
+describe('Board component', () => {
   it('the title is visible list', () => {
     render(<Board cards={data} />);
 

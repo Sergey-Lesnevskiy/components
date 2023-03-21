@@ -9,7 +9,7 @@ describe('Search component', () => {
     render(<About></About>);
 
     expect(
-      screen.queryByText(/Helllo, my name is Sergey . I am studying in rs-school/i)
+      screen.queryByText(/Hello, my name is Sergey. I am studying in rs-school/i)
     ).toBeInTheDocument();
   });
 });

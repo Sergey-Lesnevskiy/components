@@ -1,18 +1,7 @@
 import style from './board.module.css';
 import React from 'react';
 import Card from '../Card/Card';
-
-export interface CardInt {
-  id: number;
-  title: string;
-  subTitle: string;
-  like: number;
-  countEye: number;
-}
-
-type CardListProps = {
-  cards: CardInt[];
-};
+import { CardListProps } from '../../types/type';
 
 class Board extends React.Component<CardListProps, unknown> {
   constructor(props: CardListProps) {
