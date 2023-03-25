@@ -16,3 +16,7 @@ export interface CardInt {
 export type CardListProps = {
   cards: CardInt[];
 };
+
+export interface PropsError {
+  to: string;
+}

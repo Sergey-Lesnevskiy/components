@@ -1,0 +1,65 @@
+.formsWrapper{
+max-width: 400px;
+height: 500px;
+background-color:white;
+margin: 100px auto;
+padding: 30px;
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+color:  #2198e1;
+font-size: 25px
+}
+.wrapperLabel{
+  height: 50px;
+}
+
+.inputErrors{
+width:240px;
+height: 20px;
+border-bottom: 1px solid rgba(255, 0, 0, 0.286);
+font-size: 25px;
+outline:none;
+border-top: none;
+border-right: none;
+border-left: none;
+}
+
+.labelInput{
+  display: flex;
+  justify-content: space-between;
+}
+
+.input{
+  width:240px;
+  height: 20px;
+  font-size: 25px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+.inputDate{
+  width: 240px;
+  height: 38px;
+  font-size: 25px;
+
+}
+.inputErrorDate{
+  width: 240px;
+  height: 38px;
+  font-size: 25px;
+
+}
+
+.input:focus{
+  outline:none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.errorText{
+  font-size: 12px;
+  color: red;
+  margin: 0;
+}

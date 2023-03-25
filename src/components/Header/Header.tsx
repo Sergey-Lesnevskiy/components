@@ -16,6 +16,10 @@ class Header extends React.Component {
       this.setState({
         currentPage: 'About Page',
       });
+    } else if (path === '/form') {
+      this.setState({
+        currentPage: 'Form Page',
+      });
     } else {
       this.setState({
         currentPage: 'Error Page',
@@ -45,6 +49,11 @@ class Header extends React.Component {
           <li>
             <NavLink className={style.linkPage} onClick={this.handClickToLink} to="/about">
               About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className={style.linkPage} onClick={this.handClickToLink} to="/form">
+              Form
             </NavLink>
           </li>
           <li>
