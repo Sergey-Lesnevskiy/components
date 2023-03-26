@@ -5,6 +5,7 @@ export interface PropsMyInput {
   type: string;
   name: string;
   label: string;
+  errorFocus: string;
   reference: React.RefObject<HTMLInputElement>;
   errorMessage: string;
   onBlur: (input: string) => void;
@@ -30,8 +31,8 @@ class MyInput extends React.Component<PropsMyInput> {
             type={this.props.type}
             ref={this.props.reference}
             className={this.props.errorMessage ? style.inputErrors : '' + style.input}
-            onBlur={() => this.props.onBlur('Input Name')}
-            onChange={() => this.props.onChange('Input Name')}
+            onBlur={() => this.props.onBlur(`Input ${this.props.name}`)}
+            onChange={() => this.props.onChange(`Input ${this.props.name}`)}
           ></input>
 
           {this.props.errorMessage && <p className={style.errorText}>{this.props.errorMessage} </p>}

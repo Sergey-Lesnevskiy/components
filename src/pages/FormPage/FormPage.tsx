@@ -12,16 +12,34 @@ interface PersonCard {
   name: string;
   surName: string;
   date: string;
+  file: string | null;
+  city: string;
+  approval: string;
+  male: string;
 }
 export interface StateForm {
-  errors: { firstNameInput: string; lastNameInput: string; dateInput: string };
-  disabled: boolean;
+  errors: {
+    firstNameInput: string;
+    lastNameInput: string;
+    dateInput: string;
+    fileInput: string;
+    cityInput: string;
+    approvalInput: string;
+    maleInput: string;
+  };
+  disabledButton: boolean;
+  arrayCards: PersonCard[];
 }
 class FormPage extends React.Component<PropsForm, StateForm> {
   nameInput: React.RefObject<HTMLInputElement>;
   surName: React.RefObject<HTMLInputElement>;
   form: React.RefObject<HTMLFormElement>;
   dateRef: React.RefObject<HTMLInputElement>;
+  fileRef: React.RefObject<HTMLInputElement>;
+  cityRef: React.RefObject<HTMLSelectElement>;
+  approvalRef: React.RefObject<HTMLInputElement>;
+  womanRef: React.RefObject<HTMLInputElement>;
+  manRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: PropsForm) {
     super(props);
@@ -30,10 +48,23 @@ class FormPage extends React.Component<PropsForm, StateForm> {
     this.surName = createRef();
     this.form = createRef();
     this.dateRef = createRef();
+    this.fileRef = createRef();
+    this.cityRef = createRef();
+    this.approvalRef = createRef();
+    this.manRef = createRef();
+    this.womanRef = createRef();
     this.state = {
-      errors: { firstNameInput: '', lastNameInput: '', dateInput: '' },
-      disabled: true,
-      // firstNameInput: '',
+      errors: {
+        firstNameInput: '',
+        lastNameInput: '',
+        dateInput: '',
+        fileInput: '',
+        cityInput: '',
+        approvalInput: '',
+        maleInput: '',
+      },
+      disabledButton: true,
+      arrayCards: [],
     };
   }
 
@@ -43,25 +74,49 @@ class FormPage extends React.Component<PropsForm, StateForm> {
       const inputValueName = (this.nameInput as RefObject<HTMLInputElement>).current?.value;
       const inputValueSurName = (this.surName as RefObject<HTMLInputElement>).current?.value;
       const inputDate = (this.dateRef as RefObject<HTMLInputElement>).current?.value;
-      if (inputValueName && inputValueSurName && inputDate) {
+      const inputFile = (this.fileRef as RefObject<HTMLInputElement>).current?.value;
+      const inputCity = (this.cityRef as RefObject<HTMLSelectElement>).current?.value;
+      const approvalInput = (this.approvalRef as RefObject<HTMLInputElement>).current?.value;
+
+      const maleInput = (this.manRef as RefObject<HTMLInputElement>).current?.value
+        ? 'man'
+        : ' woman';
+      if (
+        inputValueName &&
+        inputValueSurName &&
+        inputDate &&
+        inputFile &&
+        inputCity &&
+        approvalInput &&
+        maleInput
+      ) {
         const newCard: PersonCard = {
           name: inputValueName,
           surName: inputValueSurName,
           date: inputDate,
+          // // file: URL.createObjectURL(inputFile[0]),
+          file: inputFile,
+          city: inputCity,
+          approval: approvalInput,
+          male: maleInput,
         };
         this.addCard(newCard);
       }
 
       (this.form as RefObject<HTMLFormElement>).current?.reset();
-      this.setState({ disabled: true });
+      this.setState({ disabledButton: true });
     }
   };
-  addCard = (newCard: { name: string }) => {
+
+  addCard = (newCard: PersonCard) => {
+    this.state.arrayCards.push(newCard);
+    this.setState({ arrayCards: this.state.arrayCards });
+    console.log(this.state.arrayCards);
     console.log(newCard);
   };
 
   componentDidUpdate() {
-    if (this.state.disabled === false) {
+    if (this.state.disabledButton === false) {
       if (this.isAnyErrorValidator()) {
         this.setDisabledSubmit();
       }
@@ -69,7 +124,15 @@ class FormPage extends React.Component<PropsForm, StateForm> {
   }
 
   validate = () => {
-    const errors = { firstNameInput: '', lastNameInput: '', dateInput: '' };
+    const errors = {
+      firstNameInput: '',
+      lastNameInput: '',
+      dateInput: '',
+      fileInput: '',
+      cityInput: '',
+      approvalInput: '',
+      maleInput: '',
+    };
     let isValid = true;
     const inputValue = (this.nameInput as RefObject<HTMLInputElement>).current?.value;
     if (!inputValue?.length) {
@@ -82,6 +145,7 @@ class FormPage extends React.Component<PropsForm, StateForm> {
       isValid = false;
       errors.firstNameInput = 'The first name must be more then 1 letter';
     }
+
     const inputValueSurName = (this.surName as RefObject<HTMLInputElement>).current?.value;
     if (!inputValueSurName?.length) {
       isValid = false;
@@ -93,11 +157,34 @@ class FormPage extends React.Component<PropsForm, StateForm> {
       isValid = false;
       errors.lastNameInput = 'The last name must be more then 1 letter';
     }
+
     const inputValueDate = (this.dateRef as RefObject<HTMLInputElement>).current?.value;
-    console.log(inputValueSurName?.length);
     if (!inputValueDate?.trim()) {
       isValid = false;
       errors.dateInput = 'Please enter your date';
+    }
+
+    const inputFile = (this.fileRef as RefObject<HTMLInputElement>).current?.files;
+    if (inputFile?.length === 0) {
+      isValid = false;
+      errors.fileInput = 'You need change file';
+    }
+    const approvalInput = (this.approvalRef as RefObject<HTMLInputElement>).current;
+    if (!approvalInput?.checked) {
+      isValid = false;
+      errors.approvalInput = 'You need to agree to data processing';
+    }
+
+    const cityInput = (this.cityRef as RefObject<HTMLSelectElement>).current?.value;
+    if (!cityInput?.length) {
+      isValid = false;
+      errors.cityInput = 'You need change city';
+    }
+    const man = (this.manRef as RefObject<HTMLInputElement>).current;
+    const woman = (this.womanRef as RefObject<HTMLInputElement>).current;
+    if (!man?.checked && !woman?.checked) {
+      isValid = false;
+      errors.maleInput = 'You need to choose a gender';
     }
 
     this.setState({
@@ -155,134 +242,311 @@ class FormPage extends React.Component<PropsForm, StateForm> {
           },
         });
       }
+    } else if (error === 'Change file') {
+      if ((this.fileRef as RefObject<HTMLInputElement>).current?.files?.length !== 0) {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            fileInput: '',
+          },
+        });
+      } else {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            fileInput: error,
+          },
+        });
+      }
+    } else if (error === 'Change city') {
+      if ((this.cityRef as RefObject<HTMLSelectElement>).current?.value.length) {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            cityInput: '',
+          },
+        });
+      } else {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            cityInput: error,
+          },
+        });
+      }
+    } else if (error === 'You need to agree...') {
+      if ((this.approvalRef as RefObject<HTMLInputElement>).current?.checked) {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            approvalInput: '',
+          },
+        });
+      } else {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            approvalInput: error,
+          },
+        });
+      }
+    } else if (error === 'male') {
+      if (
+        (this.manRef as RefObject<HTMLInputElement>).current?.checked ||
+        (this.womanRef as RefObject<HTMLInputElement>).current?.checked
+      ) {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            maleInput: '',
+          },
+        });
+      } else {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            maleInput: error,
+          },
+        });
+      }
     }
   };
   setDisabledSubmit = () => {
     this.setState({
-      disabled: true,
+      disabledButton: true,
     });
   };
 
   setUndisabledSubmit = () => {
     this.setState({
-      disabled: false,
+      disabledButton: false,
     });
   };
 
   isAnyErrorValidator = () => {
     const errors = this.state.errors;
-    if (errors.firstNameInput || errors.firstNameInput || errors.dateInput) {
+    if (
+      errors.firstNameInput ||
+      errors.lastNameInput ||
+      errors.dateInput ||
+      errors.fileInput ||
+      errors.cityInput ||
+      errors.approvalInput ||
+      errors.maleInput
+    ) {
       return true;
     }
+
     return false;
   };
 
-  onFocus = (input: string) => {
-    this.resetError(input);
-    if (this.isAnyErrorValidator()) {
+  // onFocus = (input: string) => {
+  //   this.resetError(input);
+  //   if (this.isAnyErrorValidator()) {
+  //     console.log(this.isAnyErrorValidator(), ' возвращает isValidator');
+  //     this.setDisabledSubmit();
+  //   }
+  // };
+
+  // onChange = (error: string) => {
+  //   this.onFocus(error);
+  //   this.setUndisabledSubmit();
+  //   if (this.isAnyErrorValidator()) {
+  //     this.setDisabledSubmit();
+  //   }
+  // };
+  validationRefAll() {
+    if (
+      (this.approvalRef as RefObject<HTMLInputElement>).current?.checked ||
+      (this.manRef as RefObject<HTMLInputElement>).current?.checked ||
+      (this.womanRef as RefObject<HTMLInputElement>).current?.checked ||
+      (this.nameInput as RefObject<HTMLInputElement>).current?.value.length ||
+      (this.surName as RefObject<HTMLInputElement>).current?.value.length ||
+      (this.dateRef as RefObject<HTMLInputElement>).current?.value.length ||
+      (this.fileRef as RefObject<HTMLInputElement>).current?.files?.length !== 0 ||
+      (this.cityRef as RefObject<HTMLSelectElement>).current?.value.length
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  handleChange1 = (error: string) => {
+    this.resetError(error);
+    if (this.validationRefAll()) {
+      console.log('un dis: ', this.state.errors);
+      this.setUndisabledSubmit();
+      console.log(this.state.disabledButton, ' button undis ');
+    } else {
+      console.log('dis: ', this.state.errors);
       this.setDisabledSubmit();
+      console.log(this.state.disabledButton, ' button dis ');
     }
   };
-
-  onChange = (error: string) => {
-    this.onFocus(error);
-    this.setUndisabledSubmit();
-    if (this.isAnyErrorValidator()) {
-      this.setDisabledSubmit();
-    }
+  handleClick2 = () => {
+    console.log(this.manRef.current?.checked);
+    console.log(this.womanRef.current?.checked);
   };
   render(): React.ReactNode {
     return (
-      <form className={style.formsWrapper} onSubmit={this.handleSubmit} ref={this.form}>
-        <MyInput
-          type="input"
-          name="name"
-          label="Name"
-          reference={this.nameInput}
-          errorMessage={this.state.errors.firstNameInput}
-          onBlur={this.onFocus}
-          onChange={this.onChange}
-        />
-        {/* <div className={style.wrapperLabel}>
-          <label className={style.labelInput}>First name:</label>
-          <input
-            type="input"
-            ref={this.nameInput}
-            className={this.state.errors.firstNameInput ? style.inputErrors : '' + style.input}
-            onBlur={() => this.onFocus('Input Name')}
-            onChange={() => this.onChange('Input Name')}
-          ></input>
-          {this.state.errors.firstNameInput && (
-            <p className={style.errorText}>{this.state.errors.firstNameInput} </p>
-          )}
-        </div> */}
-        <div className={style.wrapperLabel}>
-          <label className={style.labelInput}>
-            Last name:
-            <input
-              type="input"
-              ref={this.surName}
-              className={this.state.errors.lastNameInput ? style.inputErrors : '' + style.input}
-              onBlur={() => this.onFocus('Input Last name')}
-              onChange={() => this.onChange('Input Last name')}
-            ></input>
-          </label>
-          {this.state.errors.lastNameInput && (
-            <p className={style.errorText}>{this.state.errors.lastNameInput} </p>
-          )}
-        </div>
-        <div className={style.wrapperLabel}>
-          <label className={style.labelInput}>
-            Date:
-            <input
-              type="date"
-              ref={this.dateRef}
-              className={this.state.errors.dateInput ? style.inputErrors : '' + style.input}
-              onBlur={() => this.onFocus('Input Date')}
-              onChange={() => this.onChange('Input Date')}
-            ></input>
-          </label>
-          {this.state.errors.dateInput && (
-            <p className={style.errorText}>{this.state.errors.dateInput} </p>
-          )}
-        </div>
-        {/* <label className={style.labelInput}>
-          Date:
-          <input
-            type="File"
-            ref={this.nameInput}
-            className={
-              this.state.errors.firstNameInput ? style.inputErrorDate : '' + style.inputDate
-            }
-            // onBlur={() => this.onfocus('Input Date')}
-            // onFocus={() => this.onfocus('')}
-            onChange={this.onchange}
-          ></input>
-        </label>
-        {this.state.errors.firstNameInput && (
-          <p className={style.errorText}>{this.state.errors.firstNameInput} </p>
-        )}
-        your city :
-        <select>
-          <option>Minsk</option>
-          <option>Brest</option>
-          <option>Pinsk</option>
-          <option>Grodno</option>
-        </select>
-        <div></div>
-        <label>
-          Send file:
-          <input type="checkbox"></input>
-        </label>
-        <label>
-          Radio:
-          <input type="radio"></input>
-        </label>
-        <div></div> */}
-        <button type="submit" disabled={this.state.disabled}>
-          Submit
-        </button>
-      </form>
+      <div>
+        <form className={style.formsWrapper} onSubmit={this.handleSubmit} ref={this.form}>
+          <MyInput
+            type="text"
+            name="name"
+            label="Name"
+            errorFocus="Input Name"
+            reference={this.nameInput}
+            errorMessage={this.state.errors.firstNameInput}
+            onBlur={this.handleChange1}
+            onChange={this.handleChange1}
+          />
+          {/* <div className={style.wrapperLabel}>
+            <label className={style.labelInput}>
+              First name:
+              <input
+                type="input"
+                ref={this.nameInput}
+                className={this.state.errors.firstNameInput ? style.inputErrors : '' + style.input}
+                onBlur={() => this.handleChange1('Input Name')}
+                onChange={() => this.handleChange1('Input Name')}
+              ></input>
+            </label>
+            {this.state.errors.firstNameInput && (
+              <p className={style.errorText}>{this.state.errors.firstNameInput} </p>
+            )}
+          </div> */}
+
+          <div className={style.wrapperLabel}>
+            <label className={style.labelInput}>
+              Last name:
+              <input
+                type="input"
+                ref={this.surName}
+                className={this.state.errors.lastNameInput ? style.inputErrors : '' + style.input}
+                onBlur={() => this.handleChange1('Input Last name')}
+                onChange={() => this.handleChange1('Input Last name')}
+              ></input>
+            </label>
+            {this.state.errors.lastNameInput && (
+              <p className={style.errorText}>{this.state.errors.lastNameInput} </p>
+            )}
+          </div>
+
+          <div className={style.wrapperLabel}>
+            <label className={style.labelInput}>
+              Date:
+              <input
+                type="date"
+                ref={this.dateRef}
+                className={this.state.errors.dateInput ? style.inputErrors : '' + style.input}
+                onBlur={() => this.handleChange1('Input Date')}
+                onChange={() => this.handleChange1('Input Date')}
+              ></input>
+            </label>
+            {this.state.errors.dateInput && (
+              <p className={style.errorText}>{this.state.errors.dateInput} </p>
+            )}
+          </div>
+
+          <div className={style.wrapperLabel}>
+            <label className={style.labelInput}>
+              Upload file:
+              <input
+                type="file"
+                ref={this.fileRef}
+                className={
+                  this.state.errors.fileInput ? style.inputErrorDate : '' + style.inputDate
+                }
+                // onFocus={() => this.onFocus('Change file')}
+                onBlur={() => this.handleChange1('Change file')}
+                onChange={() => this.handleChange1('Change file')}
+              ></input>
+            </label>
+            {this.state.errors.fileInput && (
+              <p className={style.errorText}>{this.state.errors.fileInput} </p>
+            )}
+          </div>
+
+          <div className={style.wrapperLabel}>
+            <label className={style.labelInput}>
+              Your city:
+              <select
+                ref={this.cityRef}
+                defaultValue=""
+                className={
+                  this.state.errors.cityInput ? style.inputErrorDate : '' + style.inputDate
+                }
+                onBlur={() => this.handleChange1('Change city')}
+                onChange={() => this.handleChange1('Change city')}
+              >
+                <option value="" disabled={true}>
+                  Select city
+                </option>
+                <option value="Minsk">Minsk</option>
+                <option value="Brest">Brest</option>
+                <option value="Pinsk">Pinsk</option>
+                <option value="Grodno">Grodno</option>
+              </select>
+            </label>
+            {this.state.errors.cityInput && (
+              <p className={style.errorText}>{this.state.errors.cityInput} </p>
+            )}
+          </div>
+          <div className={style.wrapperLabel}>
+            <label className={style.labelInput}>
+              I agree...
+              <input
+                type="checkbox"
+                ref={this.approvalRef}
+                className={this.state.errors.approvalInput ? style.inputErrors : '' + style.input}
+                onClick={() => this.handleChange1('You need to agree...')}
+              ></input>
+            </label>
+            {this.state.errors.approvalInput && (
+              <p className={style.errorText}>{this.state.errors.approvalInput} </p>
+            )}
+          </div>
+          <div className={style.wrapperLabel}>
+            <div className={style.wrapperRadio}>
+              <div className={style.radio}>
+                <input
+                  onChange={() => this.handleChange1('male')}
+                  type="radio"
+                  ref={this.manRef}
+                  id="radioMan"
+                  className={style.radioInput}
+                  name="male"
+                />
+                <label htmlFor="radioMan" className={style.radioLabel}>
+                  man
+                </label>
+              </div>
+              <div className={style.radio}>
+                <input
+                  onChange={() => this.handleChange1('male')}
+                  type="radio"
+                  ref={this.womanRef}
+                  id="radioWoman"
+                  name="male"
+                  className={style.radioInput}
+                />
+                <label htmlFor="radioWoman" className={style.radioLabel}>
+                  woman
+                </label>
+              </div>
+            </div>
+            {this.state.errors.maleInput && (
+              <p className={style.errorText}>{this.state.errors.maleInput} </p>
+            )}
+          </div>
+          <button type="submit" disabled={this.state.disabledButton}>
+            Submit
+          </button>
+        </form>
+        {this.state.arrayCards.length !== 0 &&
+          this.state.arrayCards.map((i, ind) => <p key={ind}>{i.city}</p>)}
+      </div>
     );
   }
 }
