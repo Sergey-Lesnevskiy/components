@@ -25,15 +25,15 @@ class MyInput extends React.Component<PropsMyInput> {
         <div className={style.wrapperLabel}>
           <label className={style.labelInput} htmlFor={this.props.name}>
             First name:
+            <input
+              id={this.props.name}
+              type={this.props.type}
+              ref={this.props.reference}
+              className={this.props.errorMessage ? style.inputErrors : '' + style.input}
+              onBlur={() => this.props.onBlur(this.props.errorFocus)}
+              onChange={() => this.props.onChange(this.props.errorFocus)}
+            ></input>
           </label>
-          <input
-            id={this.props.name}
-            type={this.props.type}
-            ref={this.props.reference}
-            className={this.props.errorMessage ? style.inputErrors : '' + style.input}
-            onBlur={() => this.props.onBlur(`Input ${this.props.name}`)}
-            onChange={() => this.props.onChange(`Input ${this.props.name}`)}
-          ></input>
 
           {this.props.errorMessage && <p className={style.errorText}>{this.props.errorMessage} </p>}
         </div>

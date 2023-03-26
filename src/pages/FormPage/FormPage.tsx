@@ -2,35 +2,10 @@ import MyInput from '../../components/MyInput/MyInput';
 import React, { createRef, FormEvent, RefObject } from 'react';
 import './form.module.css';
 import style from './form.module.css';
+import { PersonCard, PropsForm, StateForm } from '../../types/type';
+import FormCard from '../../components/FormCard/FormCard';
 
-export interface PropsForm {
-  name: string;
-  surName: string;
-  date: string;
-}
-interface PersonCard {
-  name: string;
-  surName: string;
-  date: string;
-  file: string | null;
-  city: string;
-  approval: string;
-  male: string;
-}
-export interface StateForm {
-  errors: {
-    firstNameInput: string;
-    lastNameInput: string;
-    dateInput: string;
-    fileInput: string;
-    cityInput: string;
-    approvalInput: string;
-    maleInput: string;
-  };
-  disabledButton: boolean;
-  arrayCards: PersonCard[];
-}
-class FormPage extends React.Component<PropsForm, StateForm> {
+class FormPage extends React.Component<unknown, StateForm> {
   nameInput: React.RefObject<HTMLInputElement>;
   surName: React.RefObject<HTMLInputElement>;
   form: React.RefObject<HTMLFormElement>;
@@ -74,13 +49,13 @@ class FormPage extends React.Component<PropsForm, StateForm> {
       const inputValueName = (this.nameInput as RefObject<HTMLInputElement>).current?.value;
       const inputValueSurName = (this.surName as RefObject<HTMLInputElement>).current?.value;
       const inputDate = (this.dateRef as RefObject<HTMLInputElement>).current?.value;
-      const inputFile = (this.fileRef as RefObject<HTMLInputElement>).current?.value;
+      const inputFile = (this.fileRef as RefObject<HTMLInputElement>).current?.files;
       const inputCity = (this.cityRef as RefObject<HTMLSelectElement>).current?.value;
       const approvalInput = (this.approvalRef as RefObject<HTMLInputElement>).current?.value;
 
-      const maleInput = (this.manRef as RefObject<HTMLInputElement>).current?.value
+      const maleInput = (this.manRef as RefObject<HTMLInputElement>).current?.checked
         ? 'man'
-        : ' woman';
+        : 'woman';
       if (
         inputValueName &&
         inputValueSurName &&
@@ -94,8 +69,8 @@ class FormPage extends React.Component<PropsForm, StateForm> {
           name: inputValueName,
           surName: inputValueSurName,
           date: inputDate,
-          // // file: URL.createObjectURL(inputFile[0]),
-          file: inputFile,
+          file: URL.createObjectURL(inputFile[0]),
+          //file: inputFile,
           city: inputCity,
           approval: approvalInput,
           male: maleInput,
@@ -340,21 +315,6 @@ class FormPage extends React.Component<PropsForm, StateForm> {
     return false;
   };
 
-  // onFocus = (input: string) => {
-  //   this.resetError(input);
-  //   if (this.isAnyErrorValidator()) {
-  //     console.log(this.isAnyErrorValidator(), ' возвращает isValidator');
-  //     this.setDisabledSubmit();
-  //   }
-  // };
-
-  // onChange = (error: string) => {
-  //   this.onFocus(error);
-  //   this.setUndisabledSubmit();
-  //   if (this.isAnyErrorValidator()) {
-  //     this.setDisabledSubmit();
-  //   }
-  // };
   validationRefAll() {
     if (
       (this.approvalRef as RefObject<HTMLInputElement>).current?.checked ||
@@ -390,8 +350,13 @@ class FormPage extends React.Component<PropsForm, StateForm> {
   render(): React.ReactNode {
     return (
       <div>
-        <form className={style.formsWrapper} onSubmit={this.handleSubmit} ref={this.form}>
-          <MyInput
+        <form
+          className={style.formsWrapper}
+          onSubmit={this.handleSubmit}
+          ref={this.form}
+          data-testid={'react-form'}
+        >
+          {/* <MyInput
             type="text"
             name="name"
             label="Name"
@@ -400,11 +365,12 @@ class FormPage extends React.Component<PropsForm, StateForm> {
             errorMessage={this.state.errors.firstNameInput}
             onBlur={this.handleChange1}
             onChange={this.handleChange1}
-          />
-          {/* <div className={style.wrapperLabel}>
+          /> */}
+          <div className={style.wrapperLabel}>
             <label className={style.labelInput}>
               First name:
               <input
+                data-testid={'nameTest'}
                 type="input"
                 ref={this.nameInput}
                 className={this.state.errors.firstNameInput ? style.inputErrors : '' + style.input}
@@ -415,7 +381,7 @@ class FormPage extends React.Component<PropsForm, StateForm> {
             {this.state.errors.firstNameInput && (
               <p className={style.errorText}>{this.state.errors.firstNameInput} </p>
             )}
-          </div> */}
+          </div>
 
           <div className={style.wrapperLabel}>
             <label className={style.labelInput}>
@@ -458,7 +424,6 @@ class FormPage extends React.Component<PropsForm, StateForm> {
                 className={
                   this.state.errors.fileInput ? style.inputErrorDate : '' + style.inputDate
                 }
-                // onFocus={() => this.onFocus('Change file')}
                 onBlur={() => this.handleChange1('Change file')}
                 onChange={() => this.handleChange1('Change file')}
               ></input>
@@ -545,7 +510,7 @@ class FormPage extends React.Component<PropsForm, StateForm> {
           </button>
         </form>
         {this.state.arrayCards.length !== 0 &&
-          this.state.arrayCards.map((i, ind) => <p key={ind}>{i.city}</p>)}
+          this.state.arrayCards.map((i, ind) => <FormCard {...i} key={ind}></FormCard>)}
       </div>
     );
   }

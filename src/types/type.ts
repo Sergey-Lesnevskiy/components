@@ -20,3 +20,30 @@ export type CardListProps = {
 export interface PropsError {
   to: string;
 }
+export interface PropsForm {
+  name: string;
+  surName: string;
+  date: string;
+}
+export interface PersonCard {
+  name: string;
+  surName: string;
+  date: string;
+  file: string;
+  city: string;
+  approval: string;
+  male: string;
+}
+export interface StateForm {
+  errors: {
+    firstNameInput: string;
+    lastNameInput: string;
+    dateInput: string;
+    fileInput: string;
+    cityInput: string;
+    approvalInput: string;
+    maleInput: string;
+  };
+  disabledButton: boolean;
+  arrayCards: PersonCard[];
+}
