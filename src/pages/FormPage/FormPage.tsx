@@ -1,4 +1,3 @@
-import MyInput from '../../components/MyInput/MyInput';
 import React, { createRef, FormEvent, RefObject } from 'react';
 import './form.module.css';
 import style from './form.module.css';
@@ -356,16 +355,6 @@ class FormPage extends React.Component<unknown, StateForm> {
           ref={this.form}
           data-testid={'react-form'}
         >
-          {/* <MyInput
-            type="text"
-            name="name"
-            label="Name"
-            errorFocus="Input Name"
-            reference={this.nameInput}
-            errorMessage={this.state.errors.firstNameInput}
-            onBlur={this.handleChange1}
-            onChange={this.handleChange1}
-          /> */}
           <div className={style.wrapperLabel}>
             <label className={style.labelInput}>
               First name:
@@ -462,6 +451,7 @@ class FormPage extends React.Component<unknown, StateForm> {
             <label className={style.labelInput}>
               I agree...
               <input
+                data-testid={'approvalTest'}
                 type="checkbox"
                 ref={this.approvalRef}
                 className={this.state.errors.approvalInput ? style.inputErrors : '' + style.input}
