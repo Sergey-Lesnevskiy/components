@@ -34,7 +34,7 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <div className="top-bar animat-dropdown"></div>
+        <div className="top-bar animat-dropdown" data-testid={'header'}></div>
         <div className="main-header">
           <div className="container">
             <h2 className="site-title">{this.state.currentPage}</h2>

@@ -375,6 +375,7 @@ class FormPage extends React.Component<unknown, StateForm> {
             <label className={style.labelInput}>
               Last name:
               <input
+                data-testid={'lastNameTest'}
                 type="input"
                 ref={this.surName}
                 className={this.state.errors.lastNameInput ? style.inputErrors : '' + style.input}

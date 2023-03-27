@@ -47,3 +47,13 @@ export interface StateForm {
   disabledButton: boolean;
   arrayCards: PersonCard[];
 }
+export interface PropsMyInput {
+  type: string;
+  name: string;
+  label: string;
+  errorFocus: string;
+  reference: React.RefObject<HTMLInputElement>;
+  errorMessage: string;
+  onBlur: (input: string) => void;
+  onChange: (error: string) => void;
+}

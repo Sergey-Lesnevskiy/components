@@ -1,19 +1,7 @@
 import React from 'react';
+import { PropsMyInput } from '../../types/type';
 import style from './myInput.module.css';
 
-export interface PropsMyInput {
-  type: string;
-  name: string;
-  label: string;
-  errorFocus: string;
-  reference: React.RefObject<HTMLInputElement>;
-  errorMessage: string;
-  onBlur: (input: string) => void;
-  onChange: (error: string) => void;
-}
-// export interface StateForm {
-//   name: boolean;
-// }
 class MyInput extends React.Component<PropsMyInput> {
   constructor(props: PropsMyInput) {
     super(props);
@@ -24,7 +12,7 @@ class MyInput extends React.Component<PropsMyInput> {
       <div className={style.wrapperInput}>
         <div className={style.wrapperLabel}>
           <label className={style.labelInput} htmlFor={this.props.name}>
-            First name:
+            {this.props.label}
             <input
               id={this.props.name}
               type={this.props.type}

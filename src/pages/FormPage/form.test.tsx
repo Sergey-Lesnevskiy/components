@@ -42,7 +42,25 @@ describe('Form component', () => {
       expect(screen.queryByText(/The first name must contain only letters/i)).toBeInTheDocument();
     });
   });
-  it('Form first name must be more then 1 letter', async () => {
+  it('Form first name must be include only letter', () => {
+    render(<Form></Form>);
+    expect(screen.getByTestId('nameTest')).toBeInTheDocument();
+    userEvent.type(screen.getByTestId('nameTest'), '34');
+    fireEvent.click(screen.getByRole('button'));
+    waitFor(() => {
+      expect(screen.queryByText(/The first name must contain only letters/i)).toBeInTheDocument();
+    });
+  });
+  it('Form first name must be include only letter', () => {
+    render(<Form></Form>);
+    expect(screen.getByTestId('lastNameTest')).toBeInTheDocument();
+    userEvent.type(screen.getByTestId('lastNameTest'), '34');
+    fireEvent.click(screen.getByRole('button'));
+    waitFor(() => {
+      expect(screen.queryByText(/The Last name must contain only letters/i)).toBeInTheDocument();
+    });
+  });
+  it('Form checked approval', async () => {
     render(<Form></Form>);
     const element = await screen.findByTestId('approvalTest');
     expect(element).toBeInTheDocument();
