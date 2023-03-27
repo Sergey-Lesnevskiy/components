@@ -69,7 +69,6 @@ class FormPage extends React.Component<unknown, StateForm> {
           surName: inputValueSurName,
           date: inputDate,
           file: URL.createObjectURL(inputFile[0]),
-          //file: inputFile,
           city: inputCity,
           approval: approvalInput,
           male: maleInput,

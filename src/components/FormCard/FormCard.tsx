@@ -9,7 +9,7 @@ class FormCard extends React.Component<PersonCard> {
   render() {
     const { name, surName, date, file, city, approval, male } = this.props;
     return (
-      <ul className={style.wrapperFormCard}>
+      <ul className={style.wrapperFormCard} data-testid={'cardForm'}>
         <li>Name: {name}</li>
         <li>Last name: {surName}</li>
         <li>Date: {date}</li>

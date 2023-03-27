@@ -54,26 +54,3 @@ describe('Form component', () => {
     });
   });
 });
-// const questionDropdown = await screen.getByRole('combobox', { name: 'Question'});
-
-// act(() => {
-//     fireEvent.change(questionDropdown, { target: value: { CHANGE_VALUE } });
-// });
-// const questionDropdown = await screen.getByRole('combobox', { name: 'Question' });
-
-// act(() => {
-//     fireEvent.click(questionDropdown);
-// });
-
-// // basically, you should be able to find the elements of the
-// // dropdown after you fire the click even on the select
-// const questionOneEle = await screen.getByText('question 1');
-
-// act(() => {
-//     fireEvent.click(questionOneEle);
-// });
-
-// // you can consider using jest-dom to run an assertion here
-// // at the top of your test file -> import '@testing-library/jest-dom'
-
-// expect(questionDropdown).toHaveValue(YOUR_EXPECTED_VALUE);
