@@ -84,8 +84,6 @@ class FormPage extends React.Component<unknown, StateForm> {
   addCard = (newCard: PersonCard) => {
     this.state.arrayCards.push(newCard);
     this.setState({ arrayCards: this.state.arrayCards });
-    console.log(this.state.arrayCards);
-    console.log(newCard);
   };
 
   componentDidUpdate() {
@@ -332,13 +330,9 @@ class FormPage extends React.Component<unknown, StateForm> {
   handleChange1 = (error: string) => {
     this.resetError(error);
     if (this.validationRefAll()) {
-      console.log('un dis: ', this.state.errors);
       this.setUndisabledSubmit();
-      console.log(this.state.disabledButton, ' button undis ');
     } else {
-      console.log('dis: ', this.state.errors);
       this.setDisabledSubmit();
-      console.log(this.state.disabledButton, ' button dis ');
     }
   };
   handleClick2 = () => {

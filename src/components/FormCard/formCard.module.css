@@ -1,4 +1,13 @@
-.img{
+.img {
   width: 20px;
   height: 20px;
+}
+.wrapperFormCard {
+  max-width: 150px;
+  height: 200px;
+  background-color: antiquewhite;
+  color: black;
+  padding: 5px;
+  margin: 5px;
+  text-align: start;
 }

@@ -10,16 +10,16 @@ class FormCard extends React.Component<PersonCard> {
     const { name, surName, date, file, city, approval, male } = this.props;
     return (
       <ul className={style.wrapperFormCard} data-testid={'cardForm'}>
-        <li>Name: {name}</li>
-        <li>Last name: {surName}</li>
-        <li>Date: {date}</li>
+        <li>Name: &nbsp; {name}</li>
+        <li>Last name: &nbsp;{surName}</li>
+        <li>Date: &nbsp;{date}</li>
         <li>
-          File:
+          File:&nbsp;
           <img className={style.img} src={file} alt=""></img>
         </li>
-        <li>City: {city}</li>
-        <li>Yes: {approval}</li>
-        <li>Male: {male}</li>
+        <li>City:&nbsp; {city}</li>
+        <li>Yes:&nbsp; {approval}</li>
+        <li>Male:&nbsp; {male}</li>
       </ul>
     );
   }
