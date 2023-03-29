@@ -46,6 +46,7 @@ export interface StateForm {
   };
   disabledButton: boolean;
   arrayCards: PersonCard[];
+  show: string;
 }
 export interface PropsMyInput {
   type: string;

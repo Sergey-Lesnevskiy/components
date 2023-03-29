@@ -60,6 +60,7 @@ describe('Form component', () => {
       expect(screen.queryByText(/The Last name must contain only letters/i)).toBeInTheDocument();
     });
   });
+
   it('Form checked approval', async () => {
     render(<Form></Form>);
     const element = await screen.findByTestId('approvalTest');
@@ -70,5 +71,11 @@ describe('Form component', () => {
     waitFor(() => {
       expect(screen.getByTestId('approvalTest')).toBeDisabled();
     });
+    expect(screen.queryByRole('img')).toBeNull();
+  });
+
+  it('Form checked inputs', async () => {
+    render(<Form></Form>);
+    expect(screen.queryByRole('img')).toBeNull();
   });
 });

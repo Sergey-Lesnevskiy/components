@@ -48,5 +48,8 @@ describe('FormCard component', () => {
       ></FormCard>
     );
     expect(screen.queryByText(/date/i)).toBeInTheDocument();
+    expect(screen.queryByText(/file/i)).toBeInTheDocument();
+    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getAllByRole('img')).toHaveLength(1);
   });
 });

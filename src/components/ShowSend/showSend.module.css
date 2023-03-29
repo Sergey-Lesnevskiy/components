@@ -1,0 +1,17 @@
+.showCard{
+  position: fixed;
+  z-index: 1;
+  left: 45%;
+  top:210px;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 110px;
+  border-radius: 20px;
+  background-color: #085fabb9;
+  padding: 70px;
+  
+  font-size: 20px;
+  border: 1px solid rgba(255, 255, 0, 0.575)
+}

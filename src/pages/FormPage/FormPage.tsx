@@ -3,6 +3,7 @@ import './form.module.css';
 import style from './form.module.css';
 import { PersonCard, PropsForm, StateForm } from '../../types/type';
 import FormCard from '../../components/FormCard/FormCard';
+import ShowSend from '../../components/ShowSend/ShowSend';
 
 class FormPage extends React.Component<unknown, StateForm> {
   nameInput: React.RefObject<HTMLInputElement>;
@@ -39,6 +40,7 @@ class FormPage extends React.Component<unknown, StateForm> {
       },
       disabledButton: true,
       arrayCards: [],
+      show: '',
     };
   }
 
@@ -75,12 +77,18 @@ class FormPage extends React.Component<unknown, StateForm> {
         };
         this.addCard(newCard);
       }
-
+      this.setState({ show: 'Your data is send' });
+      this.clearShow();
       (this.form as RefObject<HTMLFormElement>).current?.reset();
       this.setState({ disabledButton: true });
     }
   };
 
+  clearShow = () => {
+    setTimeout(() => {
+      this.setState({ show: '' });
+    }, 2000);
+  };
   addCard = (newCard: PersonCard) => {
     this.state.arrayCards.push(newCard);
     this.setState({ arrayCards: this.state.arrayCards });
@@ -495,6 +503,7 @@ class FormPage extends React.Component<unknown, StateForm> {
         </form>
         {this.state.arrayCards.length !== 0 &&
           this.state.arrayCards.map((i, ind) => <FormCard {...i} key={ind}></FormCard>)}
+        {this.state.show && <ShowSend text={this.state.show}></ShowSend>}
       </div>
     );
   }

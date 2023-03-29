@@ -37,7 +37,9 @@ class Header extends React.Component {
         <div className="top-bar animat-dropdown" data-testid={'header'}></div>
         <div className="main-header">
           <div className="container">
-            <h2 className="site-title">{this.state.currentPage}</h2>
+            <h2 className="site-title" data-testid={'headerPage'}>
+              {this.state.currentPage}
+            </h2>
           </div>
         </div>
         <ul className={style.navLink}>
