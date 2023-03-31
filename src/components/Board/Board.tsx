@@ -3,23 +3,17 @@ import React from 'react';
 import Card from '../Card/Card';
 import { CardListProps } from '../../types/type';
 
-class Board extends React.Component<CardListProps, unknown> {
-  constructor(props: CardListProps) {
-    super(props);
+const Board = function Board(props: CardListProps) {
+  if (!props.cards.length) {
+    return null;
   }
-
-  render() {
-    if (!this.props.cards.length) {
-      return null;
-    }
-    return (
-      <ul className={style.board}>
-        {this.props.cards.map((item) => (
-          <Card {...item} key={item.id}></Card>
-        ))}
-      </ul>
-    );
-  }
-}
+  return (
+    <ul className={style.board}>
+      {props.cards.map((item) => (
+        <Card {...item} key={item.id}></Card>
+      ))}
+    </ul>
+  );
+};
 
 export default Board;
