@@ -2,27 +2,22 @@ import style from './formCard.module.css';
 import React from 'react';
 import { PersonCard } from '../../types/type';
 
-class FormCard extends React.Component<PersonCard> {
-  constructor(props: PersonCard) {
-    super(props);
-  }
-  render() {
-    const { name, surName, date, file, city, approval, male } = this.props;
-    return (
-      <ul className={style.wrapperFormCard} data-testid={'cardForm'}>
-        <li>Name: &nbsp; {name}</li>
-        <li>Last name: &nbsp;{surName}</li>
-        <li>Date: &nbsp;{date}</li>
-        <li>
-          File:&nbsp;
-          <img className={style.img} src={file} alt=""></img>
-        </li>
-        <li>City:&nbsp; {city}</li>
-        <li>Yes:&nbsp; {approval}</li>
-        <li>Male:&nbsp; {male}</li>
-      </ul>
-    );
-  }
+function FormCard(props: PersonCard) {
+  const { firstName, lastName, birthDate, country, agree, gender } = props;
+  return (
+    <ul className={style.wrapperFormCard} data-testid={'cardForm'}>
+      <li>Name: &nbsp; {firstName}</li>
+      <li>Last name: &nbsp;{lastName}</li>
+      <li>Date: &nbsp;{birthDate}</li>
+      {/* <li>
+        File:&nbsp;
+        <img className={style.img} src={file} alt=""></img>
+      </li> */}
+      <li>City:&nbsp; {country}</li>
+      <li>Agree:&nbsp; {agree && 'yes'}</li>
+      <li>Male:&nbsp; {gender}</li>
+    </ul>
+  );
 }
 
 export default FormCard;

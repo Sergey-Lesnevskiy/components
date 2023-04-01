@@ -26,13 +26,13 @@ export interface PropsForm {
   date: string;
 }
 export interface PersonCard {
-  name: string;
-  surName: string;
-  date: string;
-  file: string;
-  city: string;
-  approval: string;
-  male: string;
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  // file: string;
+  country: string;
+  agree: boolean;
+  gender: string;
 }
 export interface StateForm {
   errors: {

@@ -1,9 +1,17 @@
 import MyInput from '../../components/MyInput/MyInput';
-import React, { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import style from './formComponent.module.css';
+import ShowSend from '../../components/ShowSend/ShowSend';
 
 interface propsForm {
-  setFormValues: Dispatch<SetStateAction<ErrorsState[]>>;
+  setFormValues: Dispatch<SetStateAction<State[]>>;
 }
 
 interface ErrorsState {
@@ -12,143 +20,285 @@ interface ErrorsState {
   birthDate: string;
   // fileInput: string;
   country: string;
-  // agree: boolean;
-  // maleInput: string;
+  agree: string;
+  gender: string;
+}
+interface State {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  // fileInput: string;
+  country: string;
+  agree: boolean;
+  gender: string;
 }
 const FormComponent = function FormComponent({ setFormValues }: propsForm) {
-  const [disabledButton, setDisabledButton] = useState(true);
+  const [disabledButton, setDisabledButton] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [country, setCountry] = useState('');
-  const [agree, setAgree] = useState(false);
-  const [errors, setErrors] = useState<ErrorsState>({
-    firstName: '',
-    lastName: '',
-    birthDate: '',
+  const [dirty, setDirty] = useState({
+    firstName: false,
+    lastName: false,
+    birthDate: false,
     // fileInput: '',
-    country: '',
-    // agree: false,
-    // maleInput: '',
+    country: false,
+    agree: false,
+    gender: false,
   });
 
-  const validate = () => {
-    setErrors({
-      firstName: '',
-      lastName: '',
-      birthDate: '',
-      // fileInput: '',
-      country: '',
-      // agree: false,
-      // maleInput: '',
-    });
-    let isValid = true;
-    // if (!agree) {
-    //   setErrors((state) => ({ ...state, agree }));
-    //   isValid = false;
-    // }
-    if (birthDate === '') {
-      setErrors((state) => ({ ...state, birthDate: 'FirstName should be fill' }));
-      isValid = false;
-    }
-    if (country === '') {
-      setErrors((state) => ({ ...state, country: 'FirstName should be fill' }));
-      isValid = false;
-    }
-    if (firstName === '') {
-      setErrors((state) => ({ ...state, firstName: 'FirstName should be fill' }));
-      isValid = false;
-    }
-    if (lastName === '') {
-      setErrors((state) => ({ ...state, lastName: 'LastName should be fill' }));
-      isValid = false;
-    }
-    console.log(isValid);
-    setDisabledButton(!isValid);
-    return isValid;
-  };
-  const isAnyErrorValidator = () => {
-    if (
-      errors.firstName
+  const [agree, setAgree] = useState(false);
+  const [gender, setGender] = useState('');
+  const [show, setShow] = useState('');
+  const [errors, setErrors] = useState<ErrorsState>({
+    firstName: 'Input Name',
+    lastName: 'Input surname',
+    birthDate: 'You need to change birthday',
+    // fileInput: '',
+    country: 'You need to change country',
+    agree: '',
+    gender: '',
+  });
 
-      // errors.dateInput ||
-      // errors.fileInput ||
-      // errors.cityInput ||
-      // errors.approvalInput ||
-      // errors.maleInput
-    ) {
-      return true;
-    }
+  // const validate = useCallback(() => {
+  //   setErrors({
+  //     firstName: '',
+  //     lastName: '',
+  //     birthDate: '',
+  //     // fileInput: '',
+  //     country: '',
+  //     agree: false,
+  //     gender: '',
+  //   });
+  //   let isValid = true;
+  //   if (!agree) {
+  //     setErrors((state) => ({ ...state, agree: true }));
+  //     isValid = false;
+  //   }
+  //   if (birthDate === '') {
+  //     setErrors((state) => ({ ...state, birthDate: 'FirstName should be fill' }));
+  //     isValid = false;
+  //   }
 
-    return false;
-  };
+  //   if (gender === '') {
+  //     setErrors((state) => ({ ...state, gender: 'FirstName should be fill' }));
+  //     isValid = false;
+  //   }
+  //   if (country === '') {
+  //     setErrors((state) => ({ ...state, country: 'FirstName should be fill' }));
+  //     isValid = false;
+  //   }
+  //   if (firstName === '') {
+  //     setErrors((state) => ({ ...state, firstName: 'FirstName should be fill' }));
+  //     isValid = false;
+  //   } else if (!/^[a-zA-Zа-яА-Я]+$/.test(firstName)) {
+  //     isValid = false;
+  //     setErrors((state) => ({ ...state, firstName: 'The first name must contain only letters' }));
+  //   } else if (firstName?.length < 2) {
+  //     isValid = false;
+  //     setErrors((state) => ({ ...state, firstName: 'The first name must be more then 1 letter' }));
+  //   }
 
-  useEffect(() => {
-    validate();
-  }, [firstName, lastName, birthDate, country]);
+  //   if (lastName === '') {
+  //     setErrors((state) => ({ ...state, lastName: 'LastName should be fill' }));
+  //     isValid = false;
+  //   }
+  //   console.log(isValid);
+  //   setDisabledButton(!isValid);
+  //   return isValid;
+  // }, [firstName, lastName, birthDate, country, agree, gender]);
+
+  // useEffect(() => {
+  //   validate();
+  // }, [validate]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (validate()) {
-      setFormValues((state) => [...state, { firstName, lastName, birthDate, country }]);
+    if (disabledButton) {
+      setFormValues((state) => [
+        ...state,
+        { firstName, lastName, birthDate, country, agree, gender },
+      ]);
       reset();
+      setShow('Your data is send');
+      clearShow();
     }
-    // else {
-    //   setDisabledSubmit();
-    // }
-    // this.setState({ show: 'Your data is send' });
-    // this.setState({ disabledButton: true });
   };
+
+  function clearShow() {
+    setTimeout(() => {
+      setShow('');
+    }, 2000);
+  }
 
   const reset = () => {
     setAgree(false);
-    setCountry('Select country');
+    setCountry('');
     setFirstName('');
     setLastName('');
     setBirthDate('');
+    setGender('');
   };
-  const setDisabledSubmit = () => {
-    setDisabledButton(true);
+  const blurHandler = (e: React.FocusEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const event = e.target as HTMLInputElement | HTMLSelectElement;
+    switch (event?.name) {
+      case 'country':
+        setDirty((state) => ({ ...state, country: true }));
+        break;
+      case 'firstName':
+        setDirty((state) => ({ ...state, firstName: true }));
+        break;
+      case 'lastName':
+        setDirty((state) => ({ ...state, lastName: true }));
+        break;
+      case 'birthDate':
+        setDirty((state) => ({ ...state, birthDate: true }));
+        break;
+      // case 'agree':
+      //   setDirty((state) => ({ ...state, agree: true }));
+      //   break;
+    }
+  };
+  const countryHandler = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    setCountry(e.target.value);
+    if (!e.target.value.length) {
+      setErrors((state) => ({ ...state, country: 'You need change' }));
+    } else {
+      setErrors((state) => ({ ...state, country: '' }));
+    }
   };
 
-  const setUndisabledSubmit = () => {
-    setDisabledButton(false);
+  const fistNameHandler = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    setFirstName(e.target.value);
+    if (!e.target.value.length) {
+      setErrors((state) => ({ ...state, firstName: 'FirstName should be fill' }));
+    } else {
+      if (!/^[a-zA-Zа-яА-Я]+$/.test(e.target.value)) {
+        setErrors((state) => ({ ...state, firstName: 'The first name must contain only letters' }));
+        return;
+      } else if (e.target.value.length < 2) {
+        setErrors((state) => ({
+          ...state,
+          firstName: 'The first name must be more then 1 letter',
+        }));
+        return;
+      }
+      setErrors((state) => ({ ...state, firstName: '' }));
+    }
+  };
+  const lastNameHandler = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    setLastName(e.target.value);
+    if (!e.target.value.length) {
+      setErrors((state) => ({ ...state, lastName: 'Please enter your last name' }));
+    } else {
+      if (!/^[a-zA-Zа-яА-Я]+$/.test(e.target.value)) {
+        setErrors((state) => ({ ...state, lastName: 'The last name must contain only letters' }));
+        return;
+      } else if (e.target.value.length < 2) {
+        setErrors((state) => ({
+          ...state,
+          lastName: 'The first name must be more then 1 letter',
+        }));
+        return;
+      }
+      setErrors((state) => ({ ...state, lastName: '' }));
+    }
+  };
+  const birthDateHandler = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    setBirthDate(e.target.value);
+    if (!e.target.value.length) {
+      setErrors((state) => ({ ...state, birthDate: 'Please enter your date' }));
+    } else {
+      setErrors((state) => ({ ...state, birthDate: '' }));
+    }
+  };
+  const agreeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAgree(e.target.checked);
+    if (!e.target.checked) {
+      setErrors((state) => ({ ...state, agree: 'You need to agree to data processing' }));
+    } else {
+      setErrors((state) => ({ ...state, agree: '' }));
+    }
+  };
+  const femaleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGender(e.target.value);
+    if (!e.target.value.length) {
+      setErrors((state) => ({ ...state, gender: 'You need to change gender' }));
+    } else {
+      setErrors((state) => ({ ...state, gender: '' }));
+    }
   };
 
+  useEffect(() => {
+    if (
+      errors.country ||
+      errors.firstName ||
+      errors.lastName ||
+      errors.birthDate ||
+      errors.agree ||
+      errors.gender ||
+      !gender ||
+      !agree
+    ) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  }, [
+    errors.country,
+    errors.firstName,
+    errors.lastName,
+    errors.birthDate,
+    errors.agree,
+    errors.gender,
+    gender,
+    agree,
+  ]);
   return (
     <form className={style.formsWrapper} onSubmit={handleSubmit}>
       <MyInput
         label="firstName"
         text="Name:"
         type="text"
+        forTests="nameTest"
+        blur={blurHandler}
         error={errors.firstName}
+        dirty={dirty.firstName}
         value={firstName}
-        setFirstName={setFirstName}
+        setFirstName={fistNameHandler}
       />
       <MyInput
         label="lastName"
         type="text"
         text="Surname:"
+        forTests="lastNameTest"
+        blur={blurHandler}
+        dirty={dirty.lastName}
         error={errors.lastName}
         value={lastName}
-        setFirstName={setLastName}
+        setFirstName={lastNameHandler}
       />
       <MyInput
         label="birthDate"
         type="date"
         text="Birthday:"
+        forTests="birthDate"
+        blur={blurHandler}
+        dirty={dirty.birthDate}
         error={errors.birthDate}
         value={birthDate}
-        setFirstName={setBirthDate}
+        setFirstName={birthDateHandler}
       />
       <div className={style.wrapperLabel}>
-        <label htmlFor="birthDate" className={style.labelInput}>
+        <label htmlFor="country" className={style.labelInput}>
           Country:
           <select
+            onBlur={(e) => blurHandler(e)}
             name="country"
             className={errors.country ? style.inputErrorDate : '' + style.inputDate}
             value={country}
-            onChange={(event) => setCountry(event.target.value)}
+            onChange={(event) => countryHandler(event)}
           >
             <option value="" disabled={true}>
               Select country
@@ -158,22 +308,62 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
             <option>Ukraine</option>
           </select>
         </label>
-        {errors.country && <p className={style.errorText}>{errors.country} </p>}
+        {dirty.country && errors.country && <p className={style.errorText}>{errors.country} </p>}
       </div>
-      {/* <div className={style.wrapperLabel}>
+
+      <div className={style.wrapperLabel}>
         <label htmlFor="agree" className={style.labelInput}>
           I agree...
           <input
+            data-testid={'approvalTest'}
             className={errors.agree ? style.inputErrors : '' + style.input}
             type="checkbox"
+            name="agree"
             checked={agree}
-            onChange={() => setAgree((prev) => !prev)}
+            onChange={(e) => agreeHandler(e)}
           ></input>
         </label>
-      </div> */}
+        {errors.agree && <p className={style.errorText}>{errors.agree} </p>}
+      </div>
 
+      <div className={style.wrapperLabel}>
+        <div className={style.wrapperRadio}>
+          <div className={style.radio}>
+            <input
+              checked={gender === 'man'}
+              value="man"
+              onChange={(e) => femaleHandler(e)}
+              type="radio"
+              id="radioMan"
+              className={style.radioInput}
+              name="male"
+            />
+            <label htmlFor="radioMan" className={style.radioLabel}>
+              man
+            </label>
+          </div>
+          <div className={style.radio}>
+            <input
+              checked={gender === 'woman'}
+              value="woman"
+              onChange={(e) => femaleHandler(e)}
+              type="radio"
+              id="radioWoman"
+              name="male"
+              className={style.radioInput}
+            />
+            <label htmlFor="radioWoman" className={style.radioLabel}>
+              woman
+            </label>
+          </div>
+        </div>
+        {errors.gender && <p className={style.errorText}>{errors.gender} </p>}
+      </div>
+      {show && <ShowSend text={show}></ShowSend>}
       <div>
-        <input type="submit" value="Send" disabled={disabledButton} />
+        <button type="submit" value="Send" disabled={!disabledButton}>
+          Submit
+        </button>
       </div>
     </form>
   );
