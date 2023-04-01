@@ -1,12 +1,5 @@
 import MyInput from '../../components/MyInput/MyInput';
-import React, {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react';
 import style from './formComponent.module.css';
 import ShowSend from '../../components/ShowSend/ShowSend';
 
@@ -18,7 +11,7 @@ interface ErrorsState {
   firstName: string;
   lastName: string;
   birthDate: string;
-  // fileInput: string;
+  fileInput: string;
   country: string;
   agree: string;
   gender: string;
@@ -27,13 +20,15 @@ interface State {
   firstName: string;
   lastName: string;
   birthDate: string;
-  // fileInput: string;
+  fileInput: string;
   country: string;
   agree: boolean;
   gender: string;
 }
 const FormComponent = function FormComponent({ setFormValues }: propsForm) {
   const [disabledButton, setDisabledButton] = useState(false);
+  const [fileInput, setFileInput] = useState('');
+  const [fileName, setFileName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthDate, setBirthDate] = useState('');
@@ -42,10 +37,10 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
     firstName: false,
     lastName: false,
     birthDate: false,
-    // fileInput: '',
     country: false,
     agree: false,
     gender: false,
+    fileInput: false,
   });
 
   const [agree, setAgree] = useState(false);
@@ -55,70 +50,18 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
     firstName: 'Input Name',
     lastName: 'Input surname',
     birthDate: 'You need to change birthday',
-    // fileInput: '',
+    fileInput: 'You need to change file',
     country: 'You need to change country',
     agree: '',
     gender: '',
   });
-
-  // const validate = useCallback(() => {
-  //   setErrors({
-  //     firstName: '',
-  //     lastName: '',
-  //     birthDate: '',
-  //     // fileInput: '',
-  //     country: '',
-  //     agree: false,
-  //     gender: '',
-  //   });
-  //   let isValid = true;
-  //   if (!agree) {
-  //     setErrors((state) => ({ ...state, agree: true }));
-  //     isValid = false;
-  //   }
-  //   if (birthDate === '') {
-  //     setErrors((state) => ({ ...state, birthDate: 'FirstName should be fill' }));
-  //     isValid = false;
-  //   }
-
-  //   if (gender === '') {
-  //     setErrors((state) => ({ ...state, gender: 'FirstName should be fill' }));
-  //     isValid = false;
-  //   }
-  //   if (country === '') {
-  //     setErrors((state) => ({ ...state, country: 'FirstName should be fill' }));
-  //     isValid = false;
-  //   }
-  //   if (firstName === '') {
-  //     setErrors((state) => ({ ...state, firstName: 'FirstName should be fill' }));
-  //     isValid = false;
-  //   } else if (!/^[a-zA-Zа-яА-Я]+$/.test(firstName)) {
-  //     isValid = false;
-  //     setErrors((state) => ({ ...state, firstName: 'The first name must contain only letters' }));
-  //   } else if (firstName?.length < 2) {
-  //     isValid = false;
-  //     setErrors((state) => ({ ...state, firstName: 'The first name must be more then 1 letter' }));
-  //   }
-
-  //   if (lastName === '') {
-  //     setErrors((state) => ({ ...state, lastName: 'LastName should be fill' }));
-  //     isValid = false;
-  //   }
-  //   console.log(isValid);
-  //   setDisabledButton(!isValid);
-  //   return isValid;
-  // }, [firstName, lastName, birthDate, country, agree, gender]);
-
-  // useEffect(() => {
-  //   validate();
-  // }, [validate]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (disabledButton) {
       setFormValues((state) => [
         ...state,
-        { firstName, lastName, birthDate, country, agree, gender },
+        { firstName, lastName, birthDate, country, agree, gender, fileInput },
       ]);
       reset();
       setShow('Your data is send');
@@ -139,6 +82,8 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
     setLastName('');
     setBirthDate('');
     setGender('');
+    setFileInput('');
+    setFileName('');
   };
   const blurHandler = (e: React.FocusEvent<HTMLSelectElement | HTMLInputElement>) => {
     const event = e.target as HTMLInputElement | HTMLSelectElement;
@@ -155,9 +100,9 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
       case 'birthDate':
         setDirty((state) => ({ ...state, birthDate: true }));
         break;
-      // case 'agree':
-      //   setDirty((state) => ({ ...state, agree: true }));
-      //   break;
+      case 'fileInput':
+        setDirty((state) => ({ ...state, fileInput: true }));
+        break;
     }
   };
   const countryHandler = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -229,6 +174,20 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
       setErrors((state) => ({ ...state, gender: '' }));
     }
   };
+  const fileInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFileInput(URL.createObjectURL(e.target.files[0]));
+    }
+    setFileName(e.target.value);
+    // else {
+    // setFileInput(e.target.value);
+    // }
+    if (!e.target.value.length) {
+      setErrors((state) => ({ ...state, fileInput: 'You need to change gender' }));
+    } else {
+      setErrors((state) => ({ ...state, fileInput: '' }));
+    }
+  };
 
   useEffect(() => {
     if (
@@ -238,6 +197,7 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
       errors.birthDate ||
       errors.agree ||
       errors.gender ||
+      errors.fileInput ||
       !gender ||
       !agree
     ) {
@@ -252,6 +212,7 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
     errors.birthDate,
     errors.agree,
     errors.gender,
+    errors.fileInput,
     gender,
     agree,
   ]);
@@ -290,6 +251,18 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
         value={birthDate}
         setFirstName={birthDateHandler}
       />
+      <MyInput
+        label="fileInput"
+        type="file"
+        text="Upload file:"
+        forTests="fileInput"
+        blur={blurHandler}
+        dirty={dirty.fileInput}
+        error={errors.fileInput}
+        value={fileName}
+        setFirstName={fileInputHandler}
+      />
+
       <div className={style.wrapperLabel}>
         <label htmlFor="country" className={style.labelInput}>
           Country:

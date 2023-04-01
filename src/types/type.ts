@@ -29,7 +29,7 @@ export interface PersonCard {
   firstName: string;
   lastName: string;
   birthDate: string;
-  // file: string;
+  fileInput: string;
   country: string;
   agree: boolean;
   gender: string;

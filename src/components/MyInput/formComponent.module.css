@@ -16,7 +16,7 @@
   
   .inputErrors{
   width:240px;
-  height: 20px;
+  height: 30px;
   border-bottom: 1px solid rgba(255, 0, 0, 0.286);
   font-size: 25px;
   outline:none;
@@ -32,7 +32,7 @@
   
   .input{
     width:240px;
-    height: 20px;
+    height: 30px;
     font-size: 25px;
     border-top: none;
     border-right: none;

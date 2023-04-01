@@ -9,8 +9,8 @@ interface PropsMyInput {
   value: string;
   forTests: string;
   type: string;
-  blur: Dispatch<React.FocusEvent<HTMLSelectElement | HTMLInputElement>>;
-  setFirstName: Dispatch<React.ChangeEvent<HTMLSelectElement | HTMLInputElement>>;
+  blur: Dispatch<React.FocusEvent<HTMLInputElement>>;
+  setFirstName: Dispatch<React.ChangeEvent<HTMLInputElement>>;
 }
 
 const MyInput = function MyInput(props: PropsMyInput) {

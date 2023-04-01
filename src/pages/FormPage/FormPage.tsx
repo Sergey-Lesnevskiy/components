@@ -9,7 +9,7 @@ const FormPage = function FormPage() {
       firstName: '',
       lastName: '',
       birthDate: '',
-      // fileInput: '',
+      fileInput: '',
       country: '',
       agree: true,
       gender: '',

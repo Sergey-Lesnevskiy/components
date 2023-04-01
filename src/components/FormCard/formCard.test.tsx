@@ -3,18 +3,18 @@ import { describe, expect, it } from 'vitest';
 import React from 'react';
 import FormCard from './FormCard';
 import '@testing-library/jest-dom/extend-expect';
-
+// firstName, lastName, birthDate, country, agree, gender, fileInput
 describe('FormCard component', () => {
   it('render cardForm', async () => {
     render(
       <FormCard
-        name="inputValueName"
-        surName="NainputValueSurme"
-        date="20.03.2020"
-        file=" URL.createObjectURL(inputFile[0])"
-        city="on"
-        approval="on"
-        male="man"
+        firstName="inputValueName"
+        lastName="NainputValueSurme"
+        birthDate="20.03.2020"
+        fileInput=" URL.createObjectURL(inputFile[0])"
+        country="on"
+        agree={true}
+        gender="man"
       ></FormCard>
     );
     const element = await screen.findByTestId('cardForm');
@@ -24,13 +24,13 @@ describe('FormCard component', () => {
   it('Form input name work', async () => {
     render(
       <FormCard
-        name="Sergey"
-        surName="NainputValueSurme"
-        date="20.03.2020"
-        file=" URL.createObjectURL(inputFile[0])"
-        city="on"
-        approval="on"
-        male="man"
+        firstName="Sergey"
+        lastName="NainputValueSurme"
+        birthDate="20.03.2020"
+        fileInput=" URL.createObjectURL(inputFile[0])"
+        country="on"
+        agree={true}
+        gender="man"
       ></FormCard>
     );
     expect(screen.queryByText(/Sergey/i)).toBeInTheDocument();
@@ -38,13 +38,13 @@ describe('FormCard component', () => {
   it('Form input data work', async () => {
     render(
       <FormCard
-        name="Sergey"
-        surName="NainputValueSurme"
-        date="20.03.2020"
-        file=" URL.createObjectURL(inputFile[0])"
-        city="on"
-        approval="on"
-        male="man"
+        firstName="Sergey"
+        lastName="NainputValueSurme"
+        birthDate="20.03.2020"
+        fileInput=" URL.createObjectURL(inputFile[0])"
+        country="on"
+        agree={true}
+        gender="man"
       ></FormCard>
     );
     expect(screen.queryByText(/date/i)).toBeInTheDocument();
