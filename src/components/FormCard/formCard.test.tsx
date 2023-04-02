@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import React from 'react';
 import FormCard from './FormCard';
 import '@testing-library/jest-dom/extend-expect';
-// firstName, lastName, birthDate, country, agree, gender, fileInput
+
 describe('FormCard component', () => {
   it('render cardForm', async () => {
     render(

@@ -1,30 +1,29 @@
 import MyInput from '../../components/MyInput/MyInput';
-import React, { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import style from './formComponent.module.css';
 import ShowSend from '../../components/ShowSend/ShowSend';
+import { ErrorsState, propsForm } from '../../types/type';
 
-interface propsForm {
-  setFormValues: Dispatch<SetStateAction<State[]>>;
-}
+const errorState = {
+  firstName: 'Input Name',
+  lastName: 'Input surname',
+  birthDate: 'You need to change birthday',
+  fileInput: 'You need to change file',
+  country: 'You need to change country',
+  agree: '',
+  gender: '',
+};
 
-interface ErrorsState {
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  fileInput: string;
-  country: string;
-  agree: string;
-  gender: string;
-}
-interface State {
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  fileInput: string;
-  country: string;
-  agree: boolean;
-  gender: string;
-}
+const dirtyState = {
+  firstName: false,
+  lastName: false,
+  birthDate: false,
+  country: false,
+  agree: false,
+  gender: false,
+  fileInput: false,
+};
+
 const FormComponent = function FormComponent({ setFormValues }: propsForm) {
   const [disabledButton, setDisabledButton] = useState(false);
   const [fileInput, setFileInput] = useState('');
@@ -33,28 +32,11 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
   const [lastName, setLastName] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [country, setCountry] = useState('');
-  const [dirty, setDirty] = useState({
-    firstName: false,
-    lastName: false,
-    birthDate: false,
-    country: false,
-    agree: false,
-    gender: false,
-    fileInput: false,
-  });
-
+  const [dirty, setDirty] = useState(dirtyState);
   const [agree, setAgree] = useState(false);
   const [gender, setGender] = useState('');
   const [show, setShow] = useState('');
-  const [errors, setErrors] = useState<ErrorsState>({
-    firstName: 'Input Name',
-    lastName: 'Input surname',
-    birthDate: 'You need to change birthday',
-    fileInput: 'You need to change file',
-    country: 'You need to change country',
-    agree: '',
-    gender: '',
-  });
+  const [errors, setErrors] = useState<ErrorsState>(errorState);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -179,9 +161,6 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
       setFileInput(URL.createObjectURL(e.target.files[0]));
     }
     setFileName(e.target.value);
-    // else {
-    // setFileInput(e.target.value);
-    // }
     if (!e.target.value.length) {
       setErrors((state) => ({ ...state, fileInput: 'You need to change gender' }));
     } else {
@@ -217,7 +196,7 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
     agree,
   ]);
   return (
-    <form className={style.formsWrapper} onSubmit={handleSubmit}>
+    <form className={style.formsWrapper} onSubmit={handleSubmit} data-testid="react-form">
       <MyInput
         label="firstName"
         text="Name:"
@@ -267,6 +246,7 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
         <label htmlFor="country" className={style.labelInput}>
           Country:
           <select
+            data-testid={'selectTest'}
             onBlur={(e) => blurHandler(e)}
             name="country"
             className={errors.country ? style.inputErrorDate : '' + style.inputDate}
@@ -277,7 +257,7 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
               Select country
             </option>
             <option>Russia</option>
-            <option>Belarus</option>
+            <option data-testid={'optionTest'}>Belarus</option>
             <option>Ukraine</option>
           </select>
         </label>
@@ -303,6 +283,7 @@ const FormComponent = function FormComponent({ setFormValues }: propsForm) {
         <div className={style.wrapperRadio}>
           <div className={style.radio}>
             <input
+              data-testid={'genderManTest'}
               checked={gender === 'man'}
               value="man"
               onChange={(e) => femaleHandler(e)}

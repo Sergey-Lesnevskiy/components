@@ -1,17 +1,6 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import style from './formComponent.module.css';
-
-interface PropsMyInput {
-  label: string;
-  text: string;
-  error: string;
-  dirty: boolean;
-  value: string;
-  forTests: string;
-  type: string;
-  blur: Dispatch<React.FocusEvent<HTMLInputElement>>;
-  setFirstName: Dispatch<React.ChangeEvent<HTMLInputElement>>;
-}
+import { PropsMyInput } from '../../types/type';
 
 const MyInput = function MyInput(props: PropsMyInput) {
   return (

@@ -1,3 +1,5 @@
+import React, { Dispatch, SetStateAction } from 'react';
+
 export interface Props {
   state: string;
   handleClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -48,13 +50,37 @@ export interface StateForm {
   arrayCards: PersonCard[];
   show: string;
 }
+
 export interface PropsMyInput {
-  type: string;
-  name: string;
   label: string;
-  errorFocus: string;
-  reference: React.RefObject<HTMLInputElement>;
-  errorMessage: string;
-  onBlur: (input: string) => void;
-  onChange: (error: string) => void;
+  text: string;
+  error: string;
+  dirty: boolean;
+  value: string;
+  forTests: string;
+  type: string;
+  blur: Dispatch<React.FocusEvent<HTMLInputElement>>;
+  setFirstName: Dispatch<React.ChangeEvent<HTMLInputElement>>;
+}
+export interface propsForm {
+  setFormValues: Dispatch<SetStateAction<State[]>>;
+}
+
+export interface ErrorsState {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  fileInput: string;
+  country: string;
+  agree: string;
+  gender: string;
+}
+export interface State {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  fileInput: string;
+  country: string;
+  agree: boolean;
+  gender: string;
 }

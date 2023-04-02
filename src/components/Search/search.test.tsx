@@ -29,7 +29,7 @@ describe('Search component', () => {
     expect(screen.queryByText('Search')).toBeNull();
   });
 
-  it('onChnge work', () => {
+  it('onChange work', () => {
     render(
       <Search
         handleClick={function (): void {
