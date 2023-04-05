@@ -27,28 +27,45 @@ export interface PropsForm {
   surName: string;
   date: string;
 }
-export interface PersonCard {
+// export interface PersonCard {
+//   firstName: string;
+//   birthDate: string;
+//   fileInput: string;
+//   country: string;
+//   agree: boolean;
+//   gender: string;
+// }
+// export interface StateForm {
+//   errors: {
+//     firstNameInput: string;
+//     lastNameInput: string;
+//     dateInput: string;
+//     fileInput: string;
+//     cityInput: string;
+//     approvalInput: string;
+//     maleInput: string;
+//   };
+//   disabledButton: boolean;
+//   arrayCards: PersonCard[];
+//   show: string;
+// }
+
+export type Data = {
   firstName: string;
-  lastName: string;
   birthDate: string;
   fileInput: string;
   country: string;
   agree: boolean;
   gender: string;
-}
-export interface StateForm {
-  errors: {
-    firstNameInput: string;
-    lastNameInput: string;
-    dateInput: string;
-    fileInput: string;
-    cityInput: string;
-    approvalInput: string;
-    maleInput: string;
-  };
-  disabledButton: boolean;
-  arrayCards: PersonCard[];
-  show: string;
+};
+
+export interface PersonCard {
+  firstName: string;
+  birthDate: string;
+  fileInput: string;
+  country: string;
+  agree: string;
+  gender: string;
 }
 
 export interface PropsMyInput {
