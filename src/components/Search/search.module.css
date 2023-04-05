@@ -1,8 +1,8 @@
-.wrapper__search{
+.wrapper__search {
   margin-bottom: 20px;
 }
 
-.search{
+.search {
   background: none;
   font-size: 16px;
   display: block;
@@ -13,15 +13,13 @@
   width: 250px;
   border: 2px solid #22a6b3;
   outline: none;
-  transition: .3s;
+  transition: 0.3s;
 }
 
-.search:focus{
+.search:focus {
   border-color: #f9ca24;
   width: 260px;
-
 }
-.search::placeholder{
-  color:#fff
-
+.search::placeholder {
+  color: #fff;
 }

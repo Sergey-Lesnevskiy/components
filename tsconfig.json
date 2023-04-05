@@ -15,5 +15,11 @@
     "baseUrl": "./src",
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*", "styled.d.ts", "vitest.config.ts", "dist/fake.test.ts", "@testing-library/jest-dom"]
+  "include": [
+    "./src/**/*",
+    "styled.d.ts",
+    "vitest.config.ts",
+    "dist/fake.test.ts",
+    "@testing-library/jest-dom"
+  ]
 }
