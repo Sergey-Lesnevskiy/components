@@ -19,6 +19,7 @@ function FormPage() {
   } = useForm<Data>();
 
   const onSubmit = (data: Data) => {
+    console.log(data.gender);
     const newCard: PersonCard[] = [
       {
         firstName: data.firstName,
@@ -49,7 +50,7 @@ function FormPage() {
       >
         <div className={style.wrapperLabel}>
           <label htmlFor={'firstName'} className={style.labelInput}>
-            firstName:
+            FirstName:
             <input
               className={style.input}
               type="text"
@@ -90,7 +91,7 @@ function FormPage() {
               data-testid={'selectTest'}
               {...register('country', { required: 'Category is required' })}
             >
-              <option></option>
+              <option value=""></option>
               <option value="Russia">Russia</option>
               <option value="Belarus">Belarus</option>
               <option value="Ukraine">Ukraine</option>
@@ -99,7 +100,7 @@ function FormPage() {
           </label>
           <div className={style.errorText}>{errors.country?.message}</div>
         </div>
-        <div className={style.wrapperLabel}>
+        {/* <div className={style.wrapperLabel}>
           <div className={style.wrapperRadio}>
             <div className={style.radio}>
               <input
@@ -130,6 +131,53 @@ function FormPage() {
             </div>
           </div>
           {errors.gender && <p className={style.errorText}>{errors.gender?.message} </p>}
+        </div> */}
+        {/* <div className={style.wrapperLabel}>
+          <div className={style.wrapperRadio}>
+            <div className={style.radio}>
+              <input
+                {...register('gender', { required: 'Radio is required' })}
+                type="radio"
+                value="male"
+                id="field-male"
+                className={style.radioInput}
+                name="male"
+              />
+              <label htmlFor="field-male" className={style.radioLabel}>
+                Male
+              </label>
+            </div>
+            <div className={style.radio}>
+              <input
+                className={style.radioInput}
+                {...register('gender')}
+                type="radio"
+                value="female"
+                id="field-female"
+                name="male"
+              />
+              <label htmlFor="field-female" className={style.radioLabel}>
+                Female
+              </label>
+            </div>
+          </div>
+          <div className={style.errorText}>{errors.gender?.message}</div>
+        </div> */}
+        <div>
+          <label htmlFor="field-man">
+            <input
+              {...register('gender', { required: 'Radio is required' })}
+              type="radio"
+              value="male"
+              id="field-male"
+            />
+            Male
+          </label>
+          <label htmlFor="field-female">
+            <input {...register('gender')} type="radio" value="female" id="field-female" />
+            Female
+          </label>
+          <div className={style.errorText}>{errors.gender?.message}</div>
         </div>
 
         <div className={style.wrapperLabel}>
@@ -159,7 +207,7 @@ function FormPage() {
         </div>
         {show && <ShowSend text={show}></ShowSend>}
         <div>
-          <button type="submit" value="Send">
+          <button className={style.buttonSubmit} type="submit" value="Send">
             Send
           </button>
         </div>

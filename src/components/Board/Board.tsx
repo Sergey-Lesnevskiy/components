@@ -1,16 +1,32 @@
 import style from './board.module.css';
-import React from 'react';
+import React, { Dispatch, FC, MouseEventHandler, SetStateAction } from 'react';
 import Card from '../Card/Card';
-import { CardListProps } from '../../types/type';
+import { Article } from 'pages/Main/Main';
 
-const Board = function Board(props: CardListProps) {
-  if (!props.cards.length) {
-    return null;
+const Board: FC<{
+  articles: Article[];
+  dataAttribute: number;
+  setDataAttribute: Dispatch<SetStateAction<number>>;
+  setActive: Dispatch<SetStateAction<boolean>>;
+}> = function Board({ articles, setDataAttribute, setActive }) {
+  if (!articles.length) {
+    return <ul className={style.board}></ul>;
   }
+
   return (
-    <ul className={style.board}>
-      {props.cards.map((item) => (
-        <Card {...item} key={item.id}></Card>
+    <ul
+      className={style.board}
+      onClick={(event: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+        if ((event.target as HTMLElement).closest('li')) {
+          if ((event.target as HTMLElement).closest('li')?.dataset.count) {
+            setDataAttribute(Number((event.target as HTMLElement).closest('li')?.dataset.count));
+            setActive(true);
+          }
+        }
+      }}
+    >
+      {articles.map((item, index) => (
+        <Card {...item} key={index} index={index}></Card>
       ))}
     </ul>
   );

@@ -32,7 +32,7 @@
 
 .input {
   width: 240px;
-  height: 20px;
+  height: 34px;
   font-size: 25px;
   border-top: none;
   border-right: none;
@@ -122,4 +122,13 @@
 .radioInput:checked + .radioLabel:after {
   opacity: 1;
   box-shadow: 0 0 5px 3px #2198e1;
+}
+
+.buttonSubmit{
+border: none;
+width: 200px;
+background-color:#90a5d8;
+}
+.buttonSubmit:active{
+  width: 210px;
 }
