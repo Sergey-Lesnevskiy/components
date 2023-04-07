@@ -14,7 +14,9 @@ const Modal: FC<{
         onClick={(e) => e.stopPropagation()}
       >
         <img className={style.imgModal} src={item?.urlToImage} alt="" />
-        <span className={style.cross}>x</span>
+        <span className={style.cross} onClick={() => setActive(false)}>
+          x
+        </span>
         <p>
           <i>{item?.source.name}</i>
         </p>

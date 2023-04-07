@@ -5,7 +5,6 @@ import { Article } from 'pages/Main/Main';
 
 const Board: FC<{
   articles: Article[];
-  dataAttribute: number;
   setDataAttribute: Dispatch<SetStateAction<number>>;
   setActive: Dispatch<SetStateAction<boolean>>;
 }> = function Board({ articles, setDataAttribute, setActive }) {

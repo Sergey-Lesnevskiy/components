@@ -60,6 +60,7 @@ border: 1px solid greenyellow
   right: 36px;
   top: 5px;
   font-size: 42px;
+  cursor: pointer;
 }
 .imgModal{
   width: 30vw;
