@@ -11,7 +11,10 @@ describe('Search component', () => {
         handleClick={function (): void {
           throw new Error('Function not implemented.');
         }}
-        state={''}
+        handleKeyDown={function (): void {
+          throw new Error('Function not implemented.');
+        }}
+        state={'Hi'}
       ></Search>
     );
 
@@ -21,6 +24,9 @@ describe('Search component', () => {
     render(
       <Search
         handleClick={function (): void {
+          throw new Error('Function not implemented.');
+        }}
+        handleKeyDown={function (): void {
           throw new Error('Function not implemented.');
         }}
         state={''}
@@ -33,6 +39,9 @@ describe('Search component', () => {
     render(
       <Search
         handleClick={function (): void {
+          throw new Error('Function not implemented.');
+        }}
+        handleKeyDown={function (): void {
           throw new Error('Function not implemented.');
         }}
         state={''}

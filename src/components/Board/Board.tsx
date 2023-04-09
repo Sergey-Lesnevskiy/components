@@ -1,5 +1,5 @@
 import style from './board.module.css';
-import React, { Dispatch, FC, MouseEventHandler, SetStateAction } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import Card from '../Card/Card';
 import { Article } from 'pages/Main/Main';
 

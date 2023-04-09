@@ -3,12 +3,16 @@ import Search from '../../components/Search/Search';
 import React, { useEffect, useState } from 'react';
 import style from './main.module.css';
 import Board from '../../components/Board/Board';
+import fetch from 'cross-fetch';
 
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 
 const urlNew = 'https://newsapi.org/';
 const API_KEY = 'c2e5e6b5c91c4304912a4cb5ca0dc328';
+
+// const API_KEY2 = 'Gl6SdXXON1uUTSQR8zbD';
+// const URL = 'https://the-one-api.dev/v2';
 
 export interface Article {
   author: string;
@@ -22,13 +26,13 @@ export interface Article {
 }
 
 const Main = function Main() {
-  const [state, setState] = useState(window.localStorage.getItem('test') || '');
+  const [state, setState] = useState(window.localStorage.getItem('test') || 'apple');
   const [dataAttribute, setDataAttribute] = useState<number>(0);
   const [modalActive, setModalActive] = useState(false);
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState<Article[]>([]);
 
-  function fetchLoaner() {
+  function dataRequest() {
     fetch(`${urlNew}v2/everything?q=${state}&apiKey=${API_KEY}`)
       // fetch(API.characters)
       .then((response) => {
@@ -43,18 +47,24 @@ const Main = function Main() {
         }
       })
       .then((item) => {
-        setTimeout(() => {
-          setArticles(item.articles);
-          setLoading(false);
-        }, 1000);
+        // setTimeout(() => {
+        setArticles(item.articles);
+        setLoading(false);
+        // }, 1000);
       });
   }
 
   function handelSubmit() {
     setLoading(true);
     setArticles([]);
-    fetchLoaner();
+    dataRequest();
   }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.code === 'Enter') {
+      handelSubmit();
+    }
+  };
 
   // enum API {
   //   characters = 'https://rickandmortyapi.com/api/character?page=2',
@@ -68,15 +78,15 @@ const Main = function Main() {
     setState((event.target as HTMLInputElement).value);
   }
   useEffect(() => {
-    fetchLoaner();
+    dataRequest();
   }, []);
   useEffect(() => {
     localStorage.setItem('test', state);
   }, [state]);
   return (
-    <div className={style.main}>
+    <div className={style.main} data-testid={'main'}>
       <div className={style.wrapperFind}>
-        <Search handleClick={handleClick} state={state} />
+        <Search handleKeyDown={handleKeyDown} handleClick={handleClick} state={state} />
         <button className={style.search} onClick={handelSubmit}>
           Submit
         </button>

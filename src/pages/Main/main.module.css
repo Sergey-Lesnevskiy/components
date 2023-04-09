@@ -1,15 +1,14 @@
-.main{
+.main {
   display: flex;
   flex-direction: column;
   align-items: start;
 }
-.wrapperFind{
+.wrapperFind {
   display: flex;
   width: 500px;
   justify-content: space-between;
-
 }
-.search{
+.search {
   background: none;
   font-size: 16px;
   display: block;
@@ -22,15 +21,13 @@
   border: 2px solid #22a6b3;
   border-radius: 15px;
   outline: none;
-  transition: .3s;
+  transition: 0.3s;
 }
 
-.search:active{
+.search:active {
   border-color: #f9ca24;
   width: 145px;
-
 }
-.search::placeholder{
-  color:#fff
-
+.search::placeholder {
+  color: #fff;
 }

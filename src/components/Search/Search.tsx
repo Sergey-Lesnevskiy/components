@@ -9,6 +9,7 @@ const Search = function Search(props: Props) {
         className={style.search}
         defaultValue={props.state}
         onChange={props.handleClick}
+        onKeyDown={props.handleKeyDown}
         type="text"
         placeholder="Search"
       />

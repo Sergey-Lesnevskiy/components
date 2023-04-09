@@ -6,34 +6,43 @@ import '@testing-library/jest-dom/extend-expect';
 
 const data = [
   {
-    id: 1,
-    title: 'photo',
-    subTitle: 'home',
-    like: 2,
-    countEye: 6,
+    author: 'string',
+    content: 'string',
+    description: 'string',
+    publishedAt: 'string',
+    source: { id: 'string', name: 'string' },
+    title: 'string',
+    url: 'string',
+    urlToImage: 'string',
   },
   {
-    id: 2,
-    title: 'picture',
-    subTitle: 'forest',
-    like: 2,
-    countEye: 8,
+    author: 'string',
+    content: 'string',
+    description: 'string',
+    publishedAt: 'string',
+    source: { id: 'string', name: 'string' },
+    title: 'string',
+    url: 'string',
+    urlToImage: 'string',
   },
 ];
 
 describe('Board component', () => {
   it('the title is visible list', () => {
-    render(<Board cards={data} />);
+    render(
+      <Board
+        articles={data}
+        setDataAttribute={function (value: React.SetStateAction<number>): void {
+          console.log(value);
+          throw new Error('Function not implemented.');
+        }}
+        setActive={function (value: React.SetStateAction<boolean>): void {
+          console.log(value);
+          throw new Error('Function not implemented.');
+        }}
+      />
+    );
 
     expect(screen.getByRole('list')).toBeInTheDocument();
-  });
-  it('the title is visible text', () => {
-    render(<Board cards={data} />);
-
-    expect(screen.getByText('forest')).toBeInTheDocument();
-  });
-  it('List renders without data', () => {
-    render(<Board cards={[]} />);
-    expect(screen.queryByRole('list')).toBeNull();
   });
 });

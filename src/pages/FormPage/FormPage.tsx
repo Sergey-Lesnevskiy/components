@@ -163,7 +163,7 @@ function FormPage() {
           </div>
           <div className={style.errorText}>{errors.gender?.message}</div>
         </div> */}
-        <div>
+        <div className={style.wrapperRadio}>
           <label htmlFor="field-man">
             <input
               {...register('gender', { required: 'Radio is required' })}

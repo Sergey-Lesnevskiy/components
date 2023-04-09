@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, KeyboardEvent, SetStateAction } from 'react';
 
 export interface Props {
   state: string;
   handleClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
-
 export type MyState = { text: string };
 
 export interface CardInt {
@@ -27,28 +27,6 @@ export interface PropsForm {
   surName: string;
   date: string;
 }
-// export interface PersonCard {
-//   firstName: string;
-//   birthDate: string;
-//   fileInput: string;
-//   country: string;
-//   agree: boolean;
-//   gender: string;
-// }
-// export interface StateForm {
-//   errors: {
-//     firstNameInput: string;
-//     lastNameInput: string;
-//     dateInput: string;
-//     fileInput: string;
-//     cityInput: string;
-//     approvalInput: string;
-//     maleInput: string;
-//   };
-//   disabledButton: boolean;
-//   arrayCards: PersonCard[];
-//   show: string;
-// }
 
 export type Data = {
   firstName: string;

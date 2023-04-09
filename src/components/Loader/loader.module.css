@@ -1,13 +1,12 @@
-
 section._loading {
   position: absolute;
   z-index: 2;
   width: 80%;
   height: 80%;
   overflow-y: hidden;
-  }
-  
-  .mod {
+}
+
+.mod {
   background-color: inherit;
   position: absolute;
   left: 0;
@@ -15,9 +14,9 @@ section._loading {
   top: 0;
   bottom: 0;
   z-index: 100;
-  }
-  
-  .spinner {
+}
+
+.spinner {
   width: 16.6666666667rem;
   height: 16.6666666667rem;
   border-radius: 50%;
@@ -27,14 +26,16 @@ section._loading {
   right: 0;
   top: 0;
   bottom: 0;
-  }
-  
-  .spinner {
+}
+
+.spinner {
   color: #f00;
   animation: color-bubble 2s linear 0s infinite;
-  }
-  .spinner:after, .spinner:before {
-  content: "";
+}
+
+.spinner:after,
+.spinner:before {
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -47,38 +48,40 @@ section._loading {
   width: 7.3333333333rem;
   height: 7.3333333333rem;
   opacity: 0;
-  }
-  .spinner:before {
+}
+
+.spinner:before {
   animation: spinner-bubble 1.3s linear 2s infinite;
-  }
-  
-  @keyframes spinner-bubble {
+}
+
+@keyframes spinner-bubble {
   from {
-  width: 0.6666666667rem;
-  height: 0.6666666667rem;
-  opacity: 0.8;
+    width: 0.6666666667rem;
+    height: 0.6666666667rem;
+    opacity: 0.8;
   }
   to {
-  width: 16.6666666667rem;
-  height: 16.6666666667rem;
-  opacity: 0;
+    width: 16.6666666667rem;
+    height: 16.6666666667rem;
+    opacity: 0;
   }
-  }
-  @keyframes color-bubble {
+}
+@keyframes color-bubble {
   0% {
-  color: #024660;
+    color: #024660;
   }
 
   33% {
-  color: #50b949;
+    color: #50b949;
   }
   66% {
-  color: #ee2d24;
+    color: #ee2d24;
   }
   100% {
-  color: #feb825;
+    color: #feb825;
   }
-  }
-  .mod._close {
+}
+
+.mod._close {
   display: none;
-  }
+}
