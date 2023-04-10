@@ -11,9 +11,6 @@ import Modal from '../../components/Modal/Modal';
 const urlNew = 'https://newsapi.org/';
 const API_KEY = 'c2e5e6b5c91c4304912a4cb5ca0dc328';
 
-// const API_KEY2 = 'Gl6SdXXON1uUTSQR8zbD';
-// const URL = 'https://the-one-api.dev/v2';
-
 export interface Article {
   author: string;
   content: string;
@@ -38,7 +35,6 @@ const Main = function Main() {
       setLoading(false);
     } else {
       fetch(`${urlNew}v2/everything?q=${state}&apiKey=${API_KEY}`)
-        // fetch(API.characters)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -68,14 +64,6 @@ const Main = function Main() {
       handelSubmit();
     }
   };
-
-  // enum API {
-  //   characters = 'https://rickandmortyapi.com/api/character?page=2',
-  //   locations = 'https://rickandmortyapi.com/api/location',
-  //   episodes = 'https://rickandmortyapi.com/api/episode',
-  //   http = 'https://jsonplaceholder.typicode.com/todos',
-  //   limit = '_limit=',
-  // }
 
   function handleClick(event: React.ChangeEvent<HTMLInputElement>) {
     setState((event.target as HTMLInputElement).value);

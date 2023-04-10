@@ -1,6 +1,5 @@
 import style from './card.module.css';
 import React from 'react';
-// import { Article } from 'pages/Main/Main';
 
 export interface Article {
   index: number;
