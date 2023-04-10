@@ -33,25 +33,28 @@ const Main = function Main() {
   const [articles, setArticles] = useState<Article[]>([]);
 
   function dataRequest() {
-    fetch(`${urlNew}v2/everything?q=${state}&apiKey=${API_KEY}`)
-      // fetch(API.characters)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return {
-            item: {
-              articles: [],
-            },
-          };
-        }
-      })
-      .then((item) => {
-        // setTimeout(() => {
-        setArticles(item.articles);
-        setLoading(false);
-        // }, 1000);
-      });
+    if (!state.trim()) {
+      setArticles([]);
+      setLoading(false);
+    } else {
+      fetch(`${urlNew}v2/everything?q=${state}&apiKey=${API_KEY}`)
+        // fetch(API.characters)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            return {
+              item: {
+                articles: [],
+              },
+            };
+          }
+        })
+        .then((item) => {
+          setArticles(item.articles);
+          setLoading(false);
+        });
+    }
   }
 
   function handelSubmit() {

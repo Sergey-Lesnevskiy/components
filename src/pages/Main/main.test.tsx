@@ -6,29 +6,6 @@ import '@testing-library/jest-dom/extend-expect';
 import { prepareFetch } from 'vi-fetch';
 import fetch from 'node-fetch';
 
-const fakeUser = [
-  {
-    author: 'string',
-    content: 'string',
-    description: 'string',
-    publishedAt: 'string',
-    source: { id: 'string', name: 'string' },
-    title: 'string',
-    url: 'string',
-    urlToImage: 'string',
-  },
-  {
-    author: 'string',
-    content: 'string',
-    description: 'string',
-    publishedAt: 'string',
-    source: { id: 'string', name: 'string' },
-    title: 'string',
-    url: 'string',
-    urlToImage: 'string',
-  },
-];
-
 const fetchData = async () => {
   try {
     const cardJSON = await fetch(

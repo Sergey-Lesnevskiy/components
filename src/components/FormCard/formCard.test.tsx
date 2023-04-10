@@ -9,11 +9,10 @@ describe('FormCard component', () => {
     render(
       <FormCard
         firstName="inputValueName"
-        lastName="NainputValueSurme"
         birthDate="20.03.2020"
         fileInput=" URL.createObjectURL(inputFile[0])"
         country="on"
-        agree={true}
+        agree=""
         gender="man"
       ></FormCard>
     );
@@ -25,11 +24,10 @@ describe('FormCard component', () => {
     render(
       <FormCard
         firstName="Sergey"
-        lastName="NainputValueSurme"
         birthDate="20.03.2020"
         fileInput=" URL.createObjectURL(inputFile[0])"
         country="on"
-        agree={true}
+        agree=""
         gender="man"
       ></FormCard>
     );
@@ -39,11 +37,10 @@ describe('FormCard component', () => {
     render(
       <FormCard
         firstName="Sergey"
-        lastName="NainputValueSurme"
         birthDate="20.03.2020"
         fileInput=" URL.createObjectURL(inputFile[0])"
         country="on"
-        agree={true}
+        agree="{true}"
         gender="man"
       ></FormCard>
     );

@@ -5,7 +5,6 @@ import '@testing-library/jest-dom/extend-expect';
 import WrappedApp from '../WrapperApp/WrapperApp';
 import React from 'react';
 import { prepareFetch } from 'vi-fetch';
-import fetch from 'cross-fetch';
 
 describe('App', () => {
   beforeAll(() => {

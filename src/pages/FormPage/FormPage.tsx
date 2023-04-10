@@ -100,69 +100,6 @@ function FormPage() {
           </label>
           <div className={style.errorText}>{errors.country?.message}</div>
         </div>
-        {/* <div className={style.wrapperLabel}>
-          <div className={style.wrapperRadio}>
-            <div className={style.radio}>
-              <input
-                {...register('gender', { required: 'Radio is required' })}
-                data-testid={'genderManTest'}
-                value="man"
-                type="radio"
-                id="radioMan"
-                className={style.radioInput}
-                name="male"
-              />
-              <label htmlFor="radioMan" className={style.radioLabel}>
-                man
-              </label>
-            </div>
-            <div className={style.radio}>
-              <input
-                {...register('gender')}
-                value="woman"
-                type="radio"
-                id="radioWoman"
-                name="male"
-                className={style.radioInput}
-              />
-              <label htmlFor="radioWoman" className={style.radioLabel}>
-                woman
-              </label>
-            </div>
-          </div>
-          {errors.gender && <p className={style.errorText}>{errors.gender?.message} </p>}
-        </div> */}
-        {/* <div className={style.wrapperLabel}>
-          <div className={style.wrapperRadio}>
-            <div className={style.radio}>
-              <input
-                {...register('gender', { required: 'Radio is required' })}
-                type="radio"
-                value="male"
-                id="field-male"
-                className={style.radioInput}
-                name="male"
-              />
-              <label htmlFor="field-male" className={style.radioLabel}>
-                Male
-              </label>
-            </div>
-            <div className={style.radio}>
-              <input
-                className={style.radioInput}
-                {...register('gender')}
-                type="radio"
-                value="female"
-                id="field-female"
-                name="male"
-              />
-              <label htmlFor="field-female" className={style.radioLabel}>
-                Female
-              </label>
-            </div>
-          </div>
-          <div className={style.errorText}>{errors.gender?.message}</div>
-        </div> */}
         <div className={style.wrapperRadio}>
           <label htmlFor="field-man">
             <input
