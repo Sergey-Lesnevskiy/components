@@ -1,0 +1,36 @@
+.wrapper_card {
+  width: 235px;
+  padding: 2px;
+  border-radius: 20px;
+  border: 2px solid chartreuse;
+  background-color: rgba(0, 0, 0, 0.429);
+  cursor: pointer;
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  margin-bottom: 10px;
+  height: 80px;
+}
+
+.footer_card {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.description {
+  height: 30px;
+  margin: 0 auto;
+  width: 120px;
+  border-bottom: 2px solid wheat;
+}
+.countLike,
+.countEye {
+  padding: 3px 3px 0 3px;
+}
+.svg:hover {
+  cursor: pointer;
+}
