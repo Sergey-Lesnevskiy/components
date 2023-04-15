@@ -5,7 +5,7 @@ import { Article } from '../../pages/Main/Main';
 const Modal: FC<{
   active: boolean;
   setActive: Dispatch<SetStateAction<boolean>>;
-  item: Article;
+  item: Article | undefined;
 }> = ({ active, setActive, item }) => {
   return (
     <div className={active ? style.activeModal : style.modal} onClick={() => setActive(false)}>

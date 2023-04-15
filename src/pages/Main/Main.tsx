@@ -29,75 +29,64 @@ const Main = function Main() {
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState<Article[]>([]);
 
-  function dataRequest() {
-    if (!state.trim()) {
-      setArticles([]);
-      setLoading(false);
-    } else {
-      fetch(`${urlNew}v2/everything?q=${state}&apiKey=${API_KEY}`)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            return {
-              item: {
-                articles: [],
-              },
-            };
-          }
-        })
-        .then((item) => {
-          setArticles(item.articles);
-          setLoading(false);
-        });
-    }
-  }
+  // function dataRequest() {
+  //   if (!state.trim()) {
+  //     setArticles([]);
+  //     setLoading(false);
+  //   } else {
+  //     fetch(`${urlNew}v2/everything?q=${state}&apiKey=${API_KEY}`)
+  //       .then((response) => {
+  //         if (response.ok) {
+  //           return response.json();
+  //         } else {
+  //           return {
+  //             item: {
+  //               articles: [],
+  //             },
+  //           };
+  //         }
+  //       })
+  //       .then((item) => {
+  //         setArticles(item.articles);
+  //         setLoading(false);
+  //       });
+  //   }
+  // }
 
-  function handelSubmit() {
-    setLoading(true);
-    setArticles([]);
-    dataRequest();
-  }
+  // function handelSubmit() {
+  //   setLoading(true);
+  //   setArticles([]);
+  //   dataRequest();
+  // }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.code === 'Enter') {
-      handelSubmit();
-    }
-  };
+  // const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (event.code === 'Enter') {
+  //     handelSubmit();
+  //   }
+  // };
 
-  function handleClick(event: React.ChangeEvent<HTMLInputElement>) {
-    setState((event.target as HTMLInputElement).value);
-  }
-  useEffect(() => {
-    dataRequest();
-  }, []);
-  useEffect(() => {
-    localStorage.setItem('test', state);
-  }, [state]);
+  // function handleClick(event: React.ChangeEvent<HTMLInputElement>) {
+  //   setState((event.target as HTMLInputElement).value);
+  // }
+  // useEffect(() => {
+  //   dataRequest();
+  // }, []);
+  // useEffect(() => {
+  //   localStorage.setItem('test', state);
+  // }, [state]);
   return (
     <div className={style.main} data-testid={'main'}>
       <div className={style.wrapperFind}>
-        <Search handleKeyDown={handleKeyDown} handleClick={handleClick} state={state} />
-        <button className={style.search} onClick={handelSubmit}>
-          Submit
-        </button>
+        <Search />
       </div>
-      {loading && <Loader></Loader>}
-      {articles?.length !== 0 && (
-        <div>
-          <Board
-            articles={articles}
-            setDataAttribute={setDataAttribute}
-            setActive={setModalActive}
-          ></Board>
 
-          <Modal
-            active={modalActive}
-            setActive={setModalActive}
-            item={articles[dataAttribute]}
-          ></Modal>
-        </div>
-      )}
+      <div>
+        <Board
+        // articles={articles}
+        //   setDataAttribute={setDataAttribute}
+        //   setActive={setModalActive}
+        ></Board>
+      </div>
     </div>
   );
 };
