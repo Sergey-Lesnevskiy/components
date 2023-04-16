@@ -1,23 +1,26 @@
-import React, { KeyboardEvent } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 
 import style from './search.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/useTypedSelector';
 import { setSearchValue } from '../../store/Cards';
+import cardsAPI from '../../services/CardsService';
 
 const Search = function Search() {
-  const dispatch = useAppDispatch();
   const text = useAppSelector((state) => state.Card.searchValue);
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      dispatch(setSearchValue((e.target as HTMLInputElement).value));
-    } catch (error) {
-      alert(error);
-    }
-  };
+  const [searchText, setSearchText] = useState(text || '');
+  const dispatch = useAppDispatch();
+
+  // const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   try {
+  //     dispatch(setSearchValue((e.target as HTMLInputElement).value));
+  //   } catch (error) {
+  //     alert(error);
+  //   }
+  // };
   const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
     try {
       if (e.key === 'Enter') {
-        console.log('ljk;ty ghjbc[jlbnm gjbcr');
+        dispatch(setSearchValue(searchText));
       }
     } catch (error) {
       alert(error);
@@ -28,8 +31,10 @@ const Search = function Search() {
     <label className={style.wrapper__search}>
       <input
         className={style.search}
-        defaultValue={text}
-        onChange={handleChange}
+        defaultValue={searchText}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setSearchText((event.target as HTMLInputElement).value);
+        }}
         onKeyDown={handleKeyDown}
         type="text"
         placeholder="Search"

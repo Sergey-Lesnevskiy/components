@@ -17,13 +17,10 @@ export const cardsAPI = createApi({
         if (text !== '') {
           return `v2/everything?q=${text.toLowerCase()}&apiKey=${API_KEY}`;
         } else {
-          return `v2/everything?q=apple&apiKey=${API_KEY}`;
+          return ``;
         }
       },
     }),
-    // getCardByID: builder.query<Article, number>({
-    //   query: (id) => `/${id}`,
-    // }),
   }),
 });
 // export const cardsAPI = createApi({

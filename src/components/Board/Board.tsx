@@ -1,10 +1,11 @@
 import style from './board.module.css';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Card from '../Card/Card';
-import { useAppSelector } from '../../store/hooks/useTypedSelector';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/useTypedSelector';
 import { cardsAPI } from '../../services/CardsService';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
+import { setSearchValue } from '../../store/Cards';
 
 const Board: FC = function Board() {
   const [dataAttribute, setDataAttribute] = useState<number>(0);
@@ -12,16 +13,27 @@ const Board: FC = function Board() {
 
   const value = useAppSelector((state) => state.Card.searchValue);
   const { data, isLoading } = cardsAPI.useFetchAllPersonsQuery(value);
+  const dispatch = useAppDispatch();
 
-  // if (!data?.articles.length) {
-  //   return <ul className={style.board}></ul>;
-  // }
+  if (!value.trim() && data?.articles.length) {
+    return <ul className={style.board}>Input search</ul>;
+  }
+  if (!data?.articles.length && !value.trim()) {
+    {
+      dispatch(setSearchValue('green'));
+    }
+    return (
+      <ul className={style.board}>
+        <Loader></Loader>
+      </ul>
+    );
+  }
   return (
     <ul
-      {...(data?.articles?.length === 0 && !isLoading && (
-        <div className={style.main__empty}>Not found</div>
-      ))}
-      {...(isLoading ? <Loader></Loader> : '')}
+      // {...(data?.articles?.length === 0 && !isLoading && (
+      //   <div className={style.main__empty}>Not found</div>
+      // ))}
+      // {...(isLoading ? <Loader></Loader> : '')}
       className={style.board}
       onClick={(event: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
         if ((event.target as HTMLElement).closest('li')) {
