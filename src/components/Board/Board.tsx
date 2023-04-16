@@ -1,5 +1,5 @@
 import style from './board.module.css';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import Card from '../Card/Card';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/useTypedSelector';
 import { cardsAPI } from '../../services/CardsService';

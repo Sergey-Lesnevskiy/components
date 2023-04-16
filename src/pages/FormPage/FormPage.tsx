@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import FormCard from '../../components/FormCard/FormCard';
 
 import { useForm } from 'react-hook-form';
 import style from './formComponent.module.css';
-import { Data, PersonCard } from '../../types/type';
+import { Data } from '../../types/type';
 import ShowSend from '../../components/ShowSend/ShowSend';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/useTypedSelector';
+import { addFormCard, setToggleVisiblePopup } from '../../store/Form';
 
 function FormPage() {
-  const [cards, setCards] = useState<Array<PersonCard>>([]);
-  const [show, setShow] = useState('');
+  // const [cards, setCards] = useState<Array<PersonCard>>([]);
+  // const [show, setShow] = useState('');
+
+  const cards = useAppSelector((state) => state.Form.cards);
+  const show = useAppSelector((state) => state.Form.popup);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -19,26 +25,15 @@ function FormPage() {
   } = useForm<Data>();
 
   const onSubmit = (data: Data) => {
-    console.log(data.gender);
-    const newCard: PersonCard[] = [
-      {
-        firstName: data.firstName,
-        birthDate: data.birthDate,
-        country: data.country,
-        agree: data.agree ? 'OK' : 'no',
-        gender: data.gender,
-        fileInput: URL.createObjectURL((data.fileInput as unknown as FileList)[0]),
-      },
-    ];
+    dispatch(addFormCard(data));
+    dispatch(setToggleVisiblePopup(true));
 
-    setCards([...cards, ...newCard]);
-    setShow('Your data is send');
     clearShow();
     reset();
   };
   function clearShow() {
     setTimeout(() => {
-      setShow('');
+      dispatch(setToggleVisiblePopup(false));
     }, 2000);
   }
   return (
@@ -142,7 +137,7 @@ function FormPage() {
           </label>
           {errors.agree && <div className={style.errorText}>{errors.agree?.message}</div>}
         </div>
-        {show && <ShowSend text={show}></ShowSend>}
+        {show && <ShowSend text={'Ваша форма отправлена'}></ShowSend>}
         <div>
           <button className={style.buttonSubmit} type="submit" value="Send">
             Send

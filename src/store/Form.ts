@@ -15,32 +15,21 @@ export const formSlice = createSlice({
   name: 'FormCards',
   initialState,
   reducers: {
-    setVisiblePopup(state, { payload }) {
-      state.popup = payload;
-    },
-    setUnvisiblePopup(state, { payload }) {
+    setToggleVisiblePopup(state, { payload }) {
       state.popup = payload;
     },
     addFormCard(state, { payload }) {
       const values: PersonCard = {
         firstName: payload.firstName,
         birthDate: payload.birthDate,
-        fileInput: payload.fileInput,
+        fileInput: URL.createObjectURL((payload.fileInput as unknown as FileList)[0]),
         country: payload.country,
         agree: payload.agree,
         gender: payload.gender,
       };
       state.cards.push(values);
-      localStorage.setItem('cards', JSON.stringify(state.cards));
-    },
-    getCardsFromLocalStorage(state) {
-      const initialCards = localStorage.getItem('cards');
-      if (initialCards) {
-        state.cards = JSON.parse(initialCards);
-      }
     },
   },
 });
-export const { setVisiblePopup, setUnvisiblePopup, addFormCard, getCardsFromLocalStorage } =
-  formSlice.actions;
+export const { setToggleVisiblePopup, addFormCard } = formSlice.actions;
 export default formSlice.reducer;

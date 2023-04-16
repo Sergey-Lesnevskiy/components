@@ -23,21 +23,5 @@ export const cardsAPI = createApi({
     }),
   }),
 });
-// export const cardsAPI = createApi({
-//   reducerPath: 'cardsAPI',
-//   baseQuery: fetchBaseQuery({
-//     baseUrl: 'https://swapi.dev/api',
-//   }),
-//   endpoints: (build) => ({
-//     fetchAllPersons: build.query({
-//       query: (search) => ({
-//         url: '/people',
-//         params: {
-//           search,
-//         },
-//       }),
-//     }),
-//   }),
-// });
 
 export default cardsAPI;
