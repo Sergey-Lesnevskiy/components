@@ -14,7 +14,7 @@ export interface Article {
 }
 const Card = function Card(props: Article) {
   return (
-    <li className={style.wrapper_card} data-count={props.index}>
+    <li className={style.wrapper_card} data-count={props.index} data-testid="boardCard">
       <div className={style.wrapperImage}>
         <img className={style.image} src={props.urlToImage} alt="" />
       </div>

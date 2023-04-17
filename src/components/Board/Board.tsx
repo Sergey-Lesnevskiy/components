@@ -12,11 +12,15 @@ const Board: FC = function Board() {
   const [modalActive, setModalActive] = useState(false);
 
   const value = useAppSelector((state) => state.Card.searchValue);
-  const { data, isLoading } = cardsAPI.useFetchAllPersonsQuery(value);
+  const { data } = cardsAPI.useFetchAllPersonsQuery(value);
   const dispatch = useAppDispatch();
 
   if (!value.trim() && data?.articles.length) {
-    return <ul className={style.board}>Input search</ul>;
+    return (
+      <ul className={style.board} data-testid="board">
+        Input search
+      </ul>
+    );
   }
   if (!data?.articles.length && !value.trim()) {
     {
@@ -30,10 +34,7 @@ const Board: FC = function Board() {
   }
   return (
     <ul
-      // {...(data?.articles?.length === 0 && !isLoading && (
-      //   <div className={style.main__empty}>Not found</div>
-      // ))}
-      // {...(isLoading ? <Loader></Loader> : '')}
+      data-testid="board"
       className={style.board}
       onClick={(event: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
         if ((event.target as HTMLElement).closest('li')) {

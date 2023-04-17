@@ -3,16 +3,26 @@ import { describe, expect, it } from 'vitest';
 import React from 'react';
 import Form from './FormPage';
 import '@testing-library/jest-dom/extend-expect';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
 
 describe('Form component', () => {
   it('render form', async () => {
-    render(<Form></Form>);
+    render(
+      <Provider store={store}>
+        <Form></Form>
+      </Provider>
+    );
     const element = await screen.findByTestId('react-form');
     expect(element).toBeInTheDocument();
   });
 
   it('Form input name work', async () => {
-    render(<Form></Form>);
+    render(
+      <Provider store={store}>
+        <Form></Form>
+      </Provider>
+    );
     const element = await screen.findByTestId('nameTest');
     userEvent.type(element, 'fgh');
     waitFor(() => {
@@ -21,7 +31,11 @@ describe('Form component', () => {
   });
 
   it('Form submit button', async () => {
-    render(<Form></Form>);
+    render(
+      <Provider store={store}>
+        <Form></Form>
+      </Provider>
+    );
     const element = await screen.findByTestId('nameTest');
     userEvent.type(element, 'fgh');
     waitFor(() => {
@@ -33,7 +47,11 @@ describe('Form component', () => {
   });
 
   it('Form first name must be more then 1 letter', () => {
-    render(<Form></Form>);
+    render(
+      <Provider store={store}>
+        <Form></Form>
+      </Provider>
+    );
     expect(screen.getByTestId('nameTest')).toBeInTheDocument();
     userEvent.type(screen.getByTestId('nameTest'), 'f');
     fireEvent.click(screen.getByRole('button'));
@@ -42,7 +60,11 @@ describe('Form component', () => {
     });
   });
   it('Form first name must be include only letter', () => {
-    render(<Form></Form>);
+    render(
+      <Provider store={store}>
+        <Form></Form>
+      </Provider>
+    );
     expect(screen.getByTestId('nameTest')).toBeInTheDocument();
     userEvent.type(screen.getByTestId('nameTest'), '34');
     fireEvent.click(screen.getByRole('button'));
@@ -51,7 +73,11 @@ describe('Form component', () => {
     });
   });
   it('Form checked approval', async () => {
-    render(<Form></Form>);
+    render(
+      <Provider store={store}>
+        <Form></Form>
+      </Provider>
+    );
     const element = await screen.findByTestId('approvalTest');
     expect(element).toBeInTheDocument();
     act(() => {
@@ -64,7 +90,11 @@ describe('Form component', () => {
   });
 
   it('Form checked inputs', async () => {
-    render(<Form></Form>);
+    render(
+      <Provider store={store}>
+        <Form></Form>
+      </Provider>
+    );
     expect(screen.queryByRole('img')).toBeNull();
   });
 });

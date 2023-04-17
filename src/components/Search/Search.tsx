@@ -3,20 +3,12 @@ import React, { KeyboardEvent, useState } from 'react';
 import style from './search.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/useTypedSelector';
 import { setSearchValue } from '../../store/Cards';
-import cardsAPI from '../../services/CardsService';
 
 const Search = function Search() {
   const text = useAppSelector((state) => state.Card.searchValue);
   const [searchText, setSearchText] = useState(text || '');
   const dispatch = useAppDispatch();
 
-  // const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   try {
-  //     dispatch(setSearchValue((e.target as HTMLInputElement).value));
-  //   } catch (error) {
-  //     alert(error);
-  //   }
-  // };
   const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
     try {
       if (e.key === 'Enter') {

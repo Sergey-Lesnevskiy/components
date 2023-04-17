@@ -1,48 +1,26 @@
 import { render, screen } from '../../../utils/test-utils';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import React from 'react';
 import Board from './Board';
 import '@testing-library/jest-dom/extend-expect';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
+import * as router from 'react-router';
 
-const data = [
-  {
-    author: 'string',
-    content: 'string',
-    description: 'string',
-    publishedAt: 'string',
-    source: { id: 'string', name: 'string' },
-    title: 'string',
-    url: 'string',
-    urlToImage: 'string',
-  },
-  {
-    author: 'string',
-    content: 'string',
-    description: 'string',
-    publishedAt: 'string',
-    source: { id: 'string', name: 'string' },
-    title: 'string',
-    url: 'string',
-    urlToImage: 'string',
-  },
-];
+const mockNavigate = vi.fn();
 
-describe('Board component', () => {
-  it('the title is visible list', () => {
+beforeEach(() => {
+  vi.spyOn(router, 'useNavigate').mockImplementation(() => mockNavigate);
+});
+
+describe('Main component', () => {
+  it('MainPage', async () => {
     render(
-      <Board
-        articles={data}
-        setDataAttribute={function (value: React.SetStateAction<number>): void {
-          console.log(value);
-          throw new Error('Function not implemented.');
-        }}
-        setActive={function (value: React.SetStateAction<boolean>): void {
-          console.log(value);
-          throw new Error('Function not implemented.');
-        }}
-      />
+      <Provider store={store}>
+        <Board></Board>
+      </Provider>
     );
-
-    expect(screen.getByRole('list')).toBeInTheDocument();
+    expect(screen.getByTestId('board')).toBeInTheDocument();
+    expect(screen.getByTestId('modal')).toBeInTheDocument();
   });
 });

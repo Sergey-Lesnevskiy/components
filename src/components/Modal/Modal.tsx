@@ -8,7 +8,11 @@ const Modal: FC<{
   item: Article | undefined;
 }> = ({ active, setActive, item }) => {
   return (
-    <div className={active ? style.activeModal : style.modal} onClick={() => setActive(false)}>
+    <div
+      data-testid="modal"
+      className={active ? style.activeModal : style.modal}
+      onClick={() => setActive(false)}
+    >
       <div
         className={active ? style.activeModalContent : style.modalContent}
         onClick={(e) => e.stopPropagation()}
