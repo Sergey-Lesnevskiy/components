@@ -9,9 +9,12 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    setupFiles: ['./src/tests/setupTests.ts'],
     coverage: {
       all: true,
-      include: ['src/**/*.tsx'],
+      reporter: 'text',
+      include: ['**/*.{jsx,tsx}'],
+      exclude: ['src/main.tsx'],
       provider: 'c8',
     },
   },
