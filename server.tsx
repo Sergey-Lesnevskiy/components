@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import path from 'path';
 import express from 'express';
 import { readFile } from 'fs/promises';
@@ -24,17 +25,19 @@ async function createServer() {
       let template = await readFile(path.resolve(__dirname, 'index.html'), 'utf-8');
       template = await vite.transformIndexHtml(url, template);
 
-      const html = template.split(`<!--ssr-outlet-->`);
+      const [startHTML, endHTML] =  template.split(`<!--ssr-outlet-->`);
 
       const { render } = await vite.ssrLoadModule('./src/entry-server.tsx');
-      const { pipe } = await render(url, {
+
+      res.write(startHTML);
+      const { stream, injectPreload }  = await render(url, {
         onShellReady() {
-          res.write(html[0]);
-          pipe(res);
+          stream.pipe(res);
         },
         onAllReady() {
-          res.write(html[1]);
-          res.end();
+          const preloadEndHTML = endHTML.replace('<!--preload-->', injectPreload());
+            res.write(preloadEndHTML);
+            res.end();
         },
       });
     } catch (e: unknown) {

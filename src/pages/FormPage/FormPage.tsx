@@ -10,9 +10,6 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/useTypedSelect
 import { addFormCard, setToggleVisiblePopup } from '../../store/Form';
 
 function FormPage() {
-  // const [cards, setCards] = useState<Array<PersonCard>>([]);
-  // const [show, setShow] = useState('');
-
   const cards = useAppSelector((state) => state.Form.cards);
   const show = useAppSelector((state) => state.Form.popup);
   const dispatch = useAppDispatch();
@@ -128,6 +125,7 @@ function FormPage() {
           <label htmlFor="agree" className={style.labelInput}>
             I agree...
             <input
+              value="agree"
               className={style.input}
               data-testid={'approvalTest'}
               type="checkbox"

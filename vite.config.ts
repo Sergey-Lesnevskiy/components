@@ -3,19 +3,36 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import svgr from 'vite-plugin-svgr';
+import istanbul from 'vite-plugin-istanbul';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    svgr(),
+    istanbul({
+      cypress: true,
+      requireEnv: false,
+    }),
+  ],
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./src/tests/setupTests.ts'],
+    setupFiles: ['./src/setupTests.ts'],
     coverage: {
-      all: true,
-      reporter: 'text',
-      include: ['**/*.{jsx,tsx}'],
-      exclude: ['src/main.tsx'],
       provider: 'c8',
+      reporter: 'text',
     },
+  },
+  server: {
+    host: true,
+    port: 3001,
+    watch: {
+      ignored: ['**/coverage/**'],
+    },
+  },
+  build: {
+    sourcemap: true,
   },
 });

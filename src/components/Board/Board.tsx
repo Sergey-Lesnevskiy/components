@@ -12,25 +12,25 @@ const Board: FC = function Board() {
   const [modalActive, setModalActive] = useState(false);
 
   const value = useAppSelector((state) => state.Card.searchValue);
-  const { data } = cardsAPI.useFetchAllPersonsQuery(value);
+  const { data, isFetching, isError } = cardsAPI.useFetchAllPersonsQuery(value);
   const dispatch = useAppDispatch();
 
-  if (!value.trim() && data?.articles.length) {
-    return (
-      <ul className={style.board} data-testid="board">
-        Input search
-      </ul>
-    );
-  }
+  // if (!value.trim() && data?.articles.length) {
+  //   return (
+  //     <ul className={style.board} data-testid="board">
+  //       Input search
+  //     </ul>
+  //   );
+  // }
   if (!data?.articles.length && !value.trim()) {
     {
-      dispatch(setSearchValue('green'));
+      dispatch(setSearchValue('Search'));
     }
-    return (
-      <ul className={style.board}>
-        <Loader></Loader>
-      </ul>
-    );
+    // return (
+    //   <ul className={style.board}>
+    //     <Loader></Loader>
+    //   </ul>
+    // );
   }
   return (
     <ul
@@ -45,14 +45,22 @@ const Board: FC = function Board() {
         }
       }}
     >
-      {data?.articles.map((item, index) => (
-        <Card {...item} key={index} index={index}></Card>
-      ))}
-      <Modal
-        active={modalActive}
-        setActive={setModalActive}
-        item={data?.articles[dataAttribute]}
-      ></Modal>
+      {isFetching ? (
+        <Loader></Loader>
+      ) : isError ? (
+        <p>Too many requests. Please try again in one hour...</p>
+      ) : !data?.articles.length ? (
+        <p>Nothing found for your request. Please try again...</p>
+      ) : (
+        data?.articles.map((item, index) => <Card {...item} key={index} index={index}></Card>)
+      )}
+      {modalActive && (
+        <Modal
+          active={modalActive}
+          setActive={setModalActive}
+          item={data?.articles[dataAttribute]}
+        ></Modal>
+      )}
     </ul>
   );
 };

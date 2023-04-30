@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Article } from 'pages/Main/Main';
+import { Article } from '../pages/Main/Main';
 const urlNew = 'https://newsapi.org/';
 const API_KEY = 'c2e5e6b5c91c4304912a4cb5ca0dc328';
 

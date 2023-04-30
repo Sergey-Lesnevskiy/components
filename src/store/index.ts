@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolkit';
 import Card from './Cards';
 import Form from './Form';
 import { cardsAPI } from '../services/CardsService';
@@ -9,13 +9,16 @@ const rootReducers = combineReducers({
   [cardsAPI.reducerPath]: cardsAPI.reducer,
 });
 
-export const store = configureStore({
-  reducer: rootReducers,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(cardsAPI.middleware),
-});
+export const store = (preloadedState?: PreloadedState<RootState>) =>
+  configureStore({
+    reducer: rootReducers,
+    preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }).concat(cardsAPI.middleware),
+  });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof rootReducers>;
+export type AppStore = ReturnType<typeof store>;
+export type AppDispatch = AppStore['dispatch'];
