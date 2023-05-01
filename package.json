@@ -15,6 +15,7 @@
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "preview": "vite preview",
     "lint": "eslint --ext js,ts,tsx src",
+    "test": "vitest run",
     "test:vitest": "vitest --coverage",
     "coverage": "vitest run --coverage",
     "cypress:open": "cypress open",

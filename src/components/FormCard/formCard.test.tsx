@@ -1,6 +1,6 @@
-import { render, screen } from '../../../utils/test-utils';
 import { describe, expect, it } from 'vitest';
-import React from 'react';
+import { render, screen } from '@testing-library/react';
+
 import FormCard from './FormCard';
 import '@testing-library/jest-dom/extend-expect';
 

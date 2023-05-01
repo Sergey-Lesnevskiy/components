@@ -1,6 +1,7 @@
-import { render, screen, waitFor } from '../../../utils/test-utils';
+import { render, screen, waitFor } from '@testing-library/react';
+
 import { describe, expect, it } from 'vitest';
-import React from 'react';
+
 import ShowSend from './ShowSend';
 import '@testing-library/jest-dom/extend-expect';
 

@@ -15,22 +15,10 @@ const Board: FC = function Board() {
   const { data, isFetching, isError } = cardsAPI.useFetchAllPersonsQuery(value);
   const dispatch = useAppDispatch();
 
-  // if (!value.trim() && data?.articles.length) {
-  //   return (
-  //     <ul className={style.board} data-testid="board">
-  //       Input search
-  //     </ul>
-  //   );
-  // }
   if (!data?.articles.length && !value.trim()) {
     {
       dispatch(setSearchValue('Search'));
     }
-    // return (
-    //   <ul className={style.board}>
-    //     <Loader></Loader>
-    //   </ul>
-    // );
   }
   return (
     <ul

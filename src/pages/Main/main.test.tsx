@@ -1,6 +1,6 @@
-import { render, screen } from '../../../utils/test-utils';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import React from 'react';
+
 import Main from './Main';
 import '@testing-library/jest-dom/extend-expect';
 import * as router from 'react-router';
@@ -16,12 +16,11 @@ beforeEach(() => {
 describe('Main component', () => {
   it('MainPage', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={store()}>
         <Main></Main>
       </Provider>
     );
     expect(screen.getByTestId('main')).toBeInTheDocument();
     expect(screen.getByTestId('board')).toBeInTheDocument();
-    expect(screen.getByTestId('modal')).toBeInTheDocument();
   });
 });

@@ -1,43 +1,52 @@
-import { act, fireEvent, render, screen, userEvent, waitFor } from '../../../utils/test-utils';
-import { describe, expect, it } from 'vitest';
-import React from 'react';
-import Form from './FormPage';
-import '@testing-library/jest-dom/extend-expect';
+import { describe, expect, it, vi } from 'vitest';
+
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+
 import { Provider } from 'react-redux';
 import { store } from '../../store';
+import { MemoryRouter } from 'react-router-dom';
+import App from '../../App/App';
 
+const renderForm = () => {
+  render(
+    <Provider store={store()}>
+      <MemoryRouter initialEntries={['/form']}>
+        <App />
+      </MemoryRouter>
+    </Provider>
+  );
+};
 describe('Form component', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn();
+  });
+
   it('render form', async () => {
-    render(
-      <Provider store={store}>
-        <Form></Form>
-      </Provider>
-    );
+    await act(async () => {
+      renderForm();
+    });
     const element = await screen.findByTestId('react-form');
     expect(element).toBeInTheDocument();
   });
 
   it('Form input name work', async () => {
-    render(
-      <Provider store={store}>
-        <Form></Form>
-      </Provider>
-    );
+    await act(async () => {
+      renderForm();
+    });
     const element = await screen.findByTestId('nameTest');
-    userEvent.type(element, 'fgh');
+    fireEvent.input(element, { target: { value: 'fgh' } });
     waitFor(() => {
       expect(screen.getByText(/fgh/i)).toBeInTheDocument();
     });
   });
 
   it('Form submit button', async () => {
-    render(
-      <Provider store={store}>
-        <Form></Form>
-      </Provider>
-    );
+    await act(async () => {
+      renderForm();
+    });
     const element = await screen.findByTestId('nameTest');
-    userEvent.type(element, 'fgh');
+
+    fireEvent.input(element, { target: { value: 'fgh' } });
     waitFor(() => {
       expect(screen.getByText(/fgh/i)).toBeInTheDocument();
     });
@@ -46,38 +55,32 @@ describe('Form component', () => {
     });
   });
 
-  it('Form first name must be more then 1 letter', () => {
-    render(
-      <Provider store={store}>
-        <Form></Form>
-      </Provider>
-    );
+  it('Form first name must be more then 1 letter', async () => {
+    await act(async () => {
+      renderForm();
+    });
     expect(screen.getByTestId('nameTest')).toBeInTheDocument();
-    userEvent.type(screen.getByTestId('nameTest'), 'f');
+    fireEvent.input(screen.getByTestId('nameTest'), { target: { value: 'f' } });
     fireEvent.click(screen.getByRole('button'));
     waitFor(() => {
       expect(screen.queryByText(/The first name must contain only letters/i)).toBeInTheDocument();
     });
   });
-  it('Form first name must be include only letter', () => {
-    render(
-      <Provider store={store}>
-        <Form></Form>
-      </Provider>
-    );
+  it('Form first name must be include only letter', async () => {
+    await act(async () => {
+      renderForm();
+    });
     expect(screen.getByTestId('nameTest')).toBeInTheDocument();
-    userEvent.type(screen.getByTestId('nameTest'), '34');
+    fireEvent.input(screen.getByTestId('nameTest'), { target: { value: '34' } });
     fireEvent.click(screen.getByRole('button'));
     waitFor(() => {
       expect(screen.queryByText(/The first name must contain only letters/i)).toBeInTheDocument();
     });
   });
   it('Form checked approval', async () => {
-    render(
-      <Provider store={store}>
-        <Form></Form>
-      </Provider>
-    );
+    await act(async () => {
+      renderForm();
+    });
     const element = await screen.findByTestId('approvalTest');
     expect(element).toBeInTheDocument();
     act(() => {
@@ -90,11 +93,9 @@ describe('Form component', () => {
   });
 
   it('Form checked inputs', async () => {
-    render(
-      <Provider store={store}>
-        <Form></Form>
-      </Provider>
-    );
+    await act(async () => {
+      renderForm();
+    });
     expect(screen.queryByRole('img')).toBeNull();
   });
 });

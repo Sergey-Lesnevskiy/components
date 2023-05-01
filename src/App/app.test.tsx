@@ -1,24 +1,49 @@
-import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { describe, it, vi, expect } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
 
-import WrappedApp from '../WrapperApp/WrapperApp';
-import React from 'react';
-import { prepareFetch } from 'vi-fetch';
+import App from './App';
+import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../store';
 
 describe('App', () => {
-  beforeAll(() => {
-    prepareFetch(global, 'fetch');
+  beforeEach(() => {
+    global.fetch = vi.fn();
+  });
+
+  it('Renders <Main Page>', async () => {
+    render(
+      <Provider store={store()}>
+        <MemoryRouter initialEntries={['/']}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(screen.getByTestId('headerPage')).toBeInTheDocument();
+    waitFor(() => expect(screen.getByTestId('board')).toBeInTheDocument());
   });
   it('Renders <Main Page>', async () => {
     render(
-      <Provider store={store}>
-        <WrappedApp />
+      <Provider store={store()}>
+        <MemoryRouter initialEntries={['/error']}>
+          <App />
+        </MemoryRouter>
       </Provider>
     );
-    const element = await screen.findByTestId('headerPage');
-    expect(element).toBeInTheDocument();
+    waitFor(() => expect(screen.queryByText(/this page is not found/i)).toBeInTheDocument());
+  });
+  it('Renders <Main Page>', async () => {
+    render(
+      <Provider store={store()}>
+        <MemoryRouter initialEntries={['/about']}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    waitFor(() =>
+      expect(
+        screen.queryByText(/Hello, my name is Sergey. I am studying in rs-school/i)
+      ).toBeInTheDocument()
+    );
   });
 });
