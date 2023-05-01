@@ -47,7 +47,8 @@
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "vi-fetch": "^0.8.0",
-    "vite-plugin-svgr": "^2.4.0"
+    "vite-plugin-svgr": "^2.4.0",
+    "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.4",

@@ -1,4 +1,5 @@
-import { describe, it, vi, expect } from 'vitest';
+import 'whatwg-fetch';
+import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import App from './App';
@@ -7,10 +8,6 @@ import { Provider } from 'react-redux';
 import { store } from '../store';
 
 describe('App', () => {
-  beforeEach(() => {
-    global.fetch = vi.fn();
-  });
-
   it('Renders <Main Page>', async () => {
     render(
       <Provider store={store()}>
@@ -22,7 +19,7 @@ describe('App', () => {
     expect(screen.getByTestId('headerPage')).toBeInTheDocument();
     waitFor(() => expect(screen.getByTestId('board')).toBeInTheDocument());
   });
-  it('Renders <Main Page>', async () => {
+  it('Renders <Error Page>', async () => {
     render(
       <Provider store={store()}>
         <MemoryRouter initialEntries={['/error']}>
@@ -32,7 +29,7 @@ describe('App', () => {
     );
     waitFor(() => expect(screen.queryByText(/this page is not found/i)).toBeInTheDocument());
   });
-  it('Renders <Main Page>', async () => {
+  it('Renders <About Page>', async () => {
     render(
       <Provider store={store()}>
         <MemoryRouter initialEntries={['/about']}>
