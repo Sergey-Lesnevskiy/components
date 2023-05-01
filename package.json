@@ -20,7 +20,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --e2e",
     "cypress:report": "npx nyc report && npx nyc report --reporter=text-summary",
-    "cypress:e2e": "npx start-server-and-test dev http-get://localhost:3001 cypress:run",
+    "cypress:e2e": "npx start-server-and-test dev http-get://localhost:5173 cypress:run",
     "test:cypress": "npm run cypress:e2e && npm run cypress:report"
   },
   "dependencies": {
