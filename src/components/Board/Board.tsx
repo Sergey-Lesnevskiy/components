@@ -36,9 +36,9 @@ const Board: FC = function Board() {
       {isFetching ? (
         <Loader></Loader>
       ) : isError ? (
-        <p>Too many requests. Please try again in one hour...</p>
+        <p>Please try again...</p>
       ) : !data?.articles.length ? (
-        <p>Nothing found for your request. Please try again...</p>
+        <p>We can not find anything</p>
       ) : (
         data?.articles.map((item, index) => <Card {...item} key={index} index={index}></Card>)
       )}

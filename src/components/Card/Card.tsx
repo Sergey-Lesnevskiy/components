@@ -12,13 +12,13 @@ export interface Article {
   url: string;
   urlToImage: string;
 }
-const Card = function Card(props: Article) {
+const Card = function Card({ index, urlToImage, title }: Article) {
   return (
-    <li className={style.wrapper_card} data-count={props.index} data-testid="boardCard">
+    <li className={style.wrapper_card} data-count={index} data-testid="boardCard">
       <div className={style.wrapperImage}>
-        <img className={style.image} src={props.urlToImage} alt="" />
+        <img className={style.image} src={urlToImage} alt="" />
       </div>
-      <p className={style.title}>{props.title}</p>
+      <p className={style.title}>{title}</p>
     </li>
   );
 };

@@ -2,8 +2,7 @@ import { PersonCard } from '../../types/type';
 import style from './formCard.module.css';
 import React from 'react';
 
-function FormCard(props: PersonCard) {
-  const { firstName, birthDate, country, agree, gender, fileInput } = props;
+function FormCard({ firstName, birthDate, country, agree, gender, fileInput }: PersonCard) {
   return (
     <ul className={style.wrapperFormCard} data-testid={'cardForm'}>
       <li>Name: &nbsp; {firstName}</li>
