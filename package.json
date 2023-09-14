@@ -9,6 +9,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "build-v": "vite build",
     "dev": "ts-node server.tsx",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",

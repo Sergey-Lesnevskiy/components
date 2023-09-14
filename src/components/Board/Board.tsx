@@ -36,7 +36,10 @@ const Board: FC = function Board() {
       {isFetching ? (
         <Loader></Loader>
       ) : isError ? (
-        <p>Please try again...</p>
+        <h3>
+          sorry but API newsapi.org do not use in production and I change this API to JSON
+          Placeholder
+        </h3>
       ) : !data?.articles.length ? (
         <p>We can not find anything</p>
       ) : (
