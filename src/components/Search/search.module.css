@@ -1,0 +1,25 @@
+.wrapper__search {
+  margin-bottom: 20px;
+}
+
+.search {
+  background: none;
+  font-size: 16px;
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  width: 250px;
+  border: 2px solid #22a6b3;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search:focus {
+  border-color: #f9ca24;
+  width: 260px;
+}
+.search::placeholder {
+  color: #fff;
+}
